@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+
 public class LocalTenantRepository implements TenantRepositoryInterface{
     private Map<String, Tenant> tenants = new HashMap<>();
 

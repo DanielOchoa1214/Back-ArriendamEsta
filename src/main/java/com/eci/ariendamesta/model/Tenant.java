@@ -1,8 +1,11 @@
 package com.eci.ariendamesta.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collation = "Tenants")
 public class Tenant extends User{
     private List<Review> reviews = new ArrayList<>();
     private List<Petition> petitions =  new ArrayList<>();
