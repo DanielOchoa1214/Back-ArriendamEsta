@@ -14,4 +14,12 @@ public class Review {
         this.stars = reviewDTO.getStars();
         this.author = author;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

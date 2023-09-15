@@ -40,4 +40,19 @@ public class EstateServices implements EstateServiceInterface {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<Review> getReview(String reviewId, String landlordId, String estateId) {
+        Optional<Landlord> landlord = landlordRepository.get(landlordId);
+        if (landlord.isPresent()){
+            Optional<Estate> estate = landlord.get().getEstate(estateId);
+            if (estate.isPresent()){
+                Optional<Review> review = estate.get().getReview(reviewId);
+                if(review.isPresent()){
+                    return review;
+                }
+            }
+        }
+        return Optional.empty();
+    }
 }
