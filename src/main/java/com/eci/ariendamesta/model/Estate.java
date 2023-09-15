@@ -11,4 +11,12 @@ public class Estate {
     private String title;
     private List<Review> reviews;
     private List<Petition> petitions;
+
+    public String getId() {
+        return id;
+    }
+
+    public void addReview(Review review){
+        reviews.add(review);
+    }
 }

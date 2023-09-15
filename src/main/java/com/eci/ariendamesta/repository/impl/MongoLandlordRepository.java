@@ -4,7 +4,11 @@ import com.eci.ariendamesta.model.Landlord;
 import com.eci.ariendamesta.repository.LandlordRepositoryInterface;
 import com.eci.ariendamesta.repository.mongorepo.LandlordMongoRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
+@Repository
 public class MongoLandlordRepository implements LandlordRepositoryInterface {
 
     private LandlordMongoRepositoryInterface mongoDB;
@@ -17,5 +21,10 @@ public class MongoLandlordRepository implements LandlordRepositoryInterface {
     public Landlord save(Landlord landlord) {
         mongoDB.save(landlord);
         return landlord;
+    }
+
+    @Override
+    public Optional<Landlord> get(String landlordId) {
+        return mongoDB.findById(landlordId);
     }
 }

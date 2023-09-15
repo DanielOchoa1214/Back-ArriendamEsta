@@ -3,7 +3,6 @@ package com.eci.ariendamesta.model;
 import java.util.List;
 
 public abstract class User {
-
     private String id;
     private String name;
     private String email;
