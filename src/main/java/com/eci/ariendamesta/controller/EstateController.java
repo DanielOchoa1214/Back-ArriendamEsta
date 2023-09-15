@@ -21,6 +21,18 @@ public class EstateController {
         this.estateService = estateService;
     }
 
+    @GetMapping("/{estateId}/review/{reviewId}")
+    public ResponseEntity<Review> getReview(@PathVariable("reviewId") String reviewId,
+                                            @PathVariable("landlordId") String landlordId,
+                                            @PathVariable("estateId") String estateId){
+        Optional<Review> review = estateService.getReview(reviewId, landlordId, estateId);
+        if(review.isPresent()){
+            return ResponseEntity.ok(review.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/{estateId}/review")
     public ResponseEntity<Review> postReview(@RequestBody ReviewDTO review, @PathVariable("landlordId") String landlordId,
                                         @PathVariable("estateId") String estateId){
