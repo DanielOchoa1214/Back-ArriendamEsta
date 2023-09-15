@@ -7,7 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AriendamEstaApplication {
 
 	/**
-	 * Hay que documentar muchachos...... putitos.....
+	 * Primero pull sobre dev
+	 * Luego se crea su rama
+	 * Le hace commit
+	 * Push a su rama remota
+	 * En github le hace el merge
+	 * Y en intellij se cambia de rama a "dev"
+	 * Y hace pull en esa rama
 	 * @param args
 	 */
 	public static void main(String[] args) {
