@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Document(collection = "Tenants")
 public class Tenant extends User {
@@ -32,6 +33,19 @@ public class Tenant extends User {
 
     public void setPetitions(List<Petition> petitions) {
         this.petitions = petitions;
+    }
+
+    public void addPetition(Petition petition){
+        petitions.add(petition);
+    }
+
+    public Optional<Petition> getPetition(String petitionId){
+        for (Petition p : petitions){
+            if (p.getId().equals(petitionId)){
+                return Optional.of(p);
+            }
+        }
+        return Optional.empty();
     }
 
 

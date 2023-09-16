@@ -2,7 +2,9 @@ package com.eci.ariendamesta.service;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.EstateException;
+import com.eci.ariendamesta.model.Petition;
 import com.eci.ariendamesta.model.Review;
+import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.dtos.ReviewDTO;
 
 import java.util.Optional;
@@ -19,4 +21,6 @@ public interface EstateServiceInterface {
     void deleteEstate(String idEstate, Landlord landlord) throws AppExceptions;
     Optional<Review> postReview(ReviewDTO reviewDTO, Landlord landlord, String estateId) throws AppExceptions;
     Optional<Review> getReview(String reviewId, Landlord landlord, String estateId) throws AppExceptions;
+    Optional<Petition> postPetition(PetitionDTO petitionDTO, Landlord landlord, String estateId) throws AppExceptions;
+    Optional<Petition> getPetition(String petitionId, Landlord landlord, String estateId) throws AppExceptions;
 }

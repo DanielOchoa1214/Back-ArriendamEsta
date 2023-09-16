@@ -2,7 +2,10 @@ package com.eci.ariendamesta.service.impl;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.EstateException;
+import com.eci.ariendamesta.exceptions.PetitionException;
 import com.eci.ariendamesta.exceptions.ReviewException;
+import com.eci.ariendamesta.model.Petition;
+import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.estate.Estate;
 import com.eci.ariendamesta.model.Review;
 import com.eci.ariendamesta.model.dtos.ReviewDTO;
@@ -97,5 +100,30 @@ public class EstateServices implements EstateServiceInterface {
             return review;
         }
         throw new ReviewException(ReviewException.NOT_FOUND);
+    }
+
+    @Override
+    public Optional<Petition> postPetition(PetitionDTO petitionDTO, Landlord landlord, String estateId) throws AppExceptions {
+        Estate estate = getEstate(estateId, landlord);
+        System.out.println(petitionDTO.getContent());
+        Optional<Tenant> reviewer = tenantRepository.findById(petitionDTO.getAuthorId());
+        if (reviewer.isPresent()) {
+            Petition petition = new Petition(petitionDTO, reviewer.get());
+            estate.addPetition(petition);
+            landlord.addEstate(estate);
+            landlordRepository.save(landlord);
+            return Optional.of(petition);
+        }
+        throw new ReviewException(PetitionException.NOT_CREATED);
+    }
+
+    @Override
+    public Optional<Petition> getPetition(String petitionId, Landlord landlord, String estateId) throws AppExceptions {
+        Estate estate = getEstate(estateId, landlord);
+        Optional<Petition> petition = estate.getPetitions(petitionId);
+        if (petition.isPresent()) {
+            return petition;
+        }
+        throw new ReviewException(PetitionException.NOT_FOUND);
     }
 }
