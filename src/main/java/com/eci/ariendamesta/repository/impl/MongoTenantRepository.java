@@ -1,6 +1,6 @@
 package com.eci.ariendamesta.repository.impl;
 
-import com.eci.ariendamesta.model.Tenant;
+import com.eci.ariendamesta.model.tenant.Tenant;
 import com.eci.ariendamesta.repository.TenantRepositoryInterface;
 import com.eci.ariendamesta.repository.mongorepo.TenantMongoRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
+@Repository
 public class MongoTenantRepository implements TenantRepositoryInterface {
 
     private TenantMongoRepositoryInterface mongoDB;

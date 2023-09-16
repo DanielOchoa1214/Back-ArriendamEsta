@@ -1,8 +1,7 @@
 package com.eci.ariendamesta.repository.impl;
 
-import com.eci.ariendamesta.model.Tenant;
+import com.eci.ariendamesta.model.tenant.Tenant;
 import com.eci.ariendamesta.repository.TenantRepositoryInterface;
-import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;

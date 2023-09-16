@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/v1/user/landlord/{idLandlord}/estate")
 public class EstateController {
@@ -78,21 +80,13 @@ public class EstateController {
                                             @PathVariable("landlordId") String landlordId,
                                             @PathVariable("estateId") String estateId){
         Optional<Review> review = estateService.getReview(reviewId, landlordId, estateId);
-        if(review.isPresent()){
-            return ResponseEntity.ok(review.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return review.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/{estateId}/review")
     public ResponseEntity<Review> postReview(@RequestBody ReviewDTO review, @PathVariable("landlordId") String landlordId,
                                         @PathVariable("estateId") String estateId){
         Optional<Review> created = estateService.postReview(review, landlordId, estateId);
-        if (created.isPresent()){
-            return ResponseEntity.ok(created.get());
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        return created.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }
