@@ -22,6 +22,14 @@ public abstract class User {
         this.gender = gender;
     }
 
+    public User(String name, String email, String password, String contact, String age, Gender gender) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.contact = contact;
+        this.age = age;
+        this.gender = gender;
+    }
     public String getId() {
         return id;
     }
