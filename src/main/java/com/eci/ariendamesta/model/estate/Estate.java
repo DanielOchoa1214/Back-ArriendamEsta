@@ -42,6 +42,19 @@ public class Estate {
         return Optional.empty();
     }
 
+    public void addPetition(Petition petition){
+        petitions.add(petition);
+    }
+
+    public Optional<Petition> getPetitions(String petitionId){
+        for (Petition p : petitions){
+            if (p.getId().equals(petitionId)){
+                return Optional.of(p);
+            }
+        }
+        return Optional.empty();
+    }
+
     public String getId() {
         return id;
     }

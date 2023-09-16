@@ -3,7 +3,9 @@ package com.eci.ariendamesta.controller;
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.EstateException;
 import com.eci.ariendamesta.exceptions.UserException;
+import com.eci.ariendamesta.model.Petition;
 import com.eci.ariendamesta.model.User;
+import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.estate.Estate;
 import com.eci.ariendamesta.model.estate.EstateDto;
 import com.eci.ariendamesta.model.landlord.Landlord;
@@ -96,6 +98,31 @@ public class EstateController {
             Landlord landlord = landlordServices.foundById(landlordId);
             Optional<Review> created = estateServices.postReview(review, landlord, estateId);
             return ResponseEntity.ok(created.get());
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{estateId}/petition")
+    public ResponseEntity<?> postPetition(@PathVariable("landlordId") String landlordId, @RequestBody PetitionDTO petitionDTO,
+                                          @PathVariable("estateId") String estateId) {
+        try{
+            Landlord landlord = landlordServices.foundById(landlordId);
+            Optional<Petition> created = estateServices.postPetition(petitionDTO, landlord,estateId);
+            return ResponseEntity.ok(created.get());
+        } catch (AppExceptions e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{estateId}/petition/{petitionId}")
+    public ResponseEntity<?> getpetiion(@PathVariable("petitionId") String petitionId,
+                                       @PathVariable("landlordId") String landlordId,
+                                       @PathVariable("estateId") String estateId) {
+        try {
+            Landlord landlord = landlordServices.foundById(landlordId);
+            Optional<Petition> petition = estateServices.getPetition(petitionId, landlord, estateId);
+            return ResponseEntity.ok(petition);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

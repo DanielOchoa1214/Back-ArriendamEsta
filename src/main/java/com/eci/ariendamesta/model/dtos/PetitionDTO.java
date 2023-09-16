@@ -1,29 +1,20 @@
-package com.eci.ariendamesta.model;
+package com.eci.ariendamesta.model.dtos;
 
-import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.tenant.Tenant;
 
-public class Petition {
+public class PetitionDTO {
+
     private String id;
     private boolean acepted;
     private String content;
     private String authorId;
 
-    public Petition(String id,Boolean acepted, String content, String authorId){
+    public PetitionDTO(String id,Boolean acepted, String content, String authorId){
         this.id = id;
         this.content = content;
         this.acepted = acepted;
         this.authorId = authorId;
     }
-
-    public Petition(PetitionDTO petitionDTO, User author){
-        this.id = petitionDTO.getId();
-        this.content = petitionDTO.getContent();
-        this.acepted = petitionDTO.isAcepted();
-        this.authorId = author.getId();
-    }
-
-    public Petition(){}
 
     public boolean isAcepted() {
         return acepted;
@@ -48,6 +39,7 @@ public class Petition {
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
+
 
     public String getId() {
         return id;
