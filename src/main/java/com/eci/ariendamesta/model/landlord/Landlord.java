@@ -1,6 +1,7 @@
 package com.eci.ariendamesta.model.landlord;
 
 import com.eci.ariendamesta.model.*;
+import com.eci.ariendamesta.model.estate.Estate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
@@ -8,27 +9,36 @@ import java.util.*;
 @Document(collection = "landlord")
 public class Landlord extends User {
 
-    private List<Estate> myEstates = new ArrayList<>();
+    private Map<String, Estate> myEstates = new HashMap<>();
     private List<Review> reviews = new ArrayList<>();
 
     public Landlord(String id, String name, String email, String password, String contact, String age, Gender gender) {
         super(id, name, email, password, contact, age, gender);
     }
 
-    public Optional<Estate> getEstate(String estateId){
-        for (Estate e: myEstates){
-            if (e.getId().equals(estateId)){
-                return Optional.of(e);
-            }
-        }
-        return Optional.empty();
+    public Estate addEstate(Estate estate) {
+        myEstates.put(estate.getId(), estate);
+        return myEstates.get(estate.getId());
     }
 
-    public List<Estate> getMyEstates() {
+    public Optional<Estate> getEstate(String estateId){
+        try {
+            Estate estate = myEstates.get(estateId);
+            return Optional.of(estate);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    public void deleteEstate(Estate estate) {
+        myEstates.remove(estate.getId());
+    }
+
+    public Map<String, Estate> getMyEstates() {
         return myEstates;
     }
 
-    public void setMyEstates(List<Estate> myEstates) {
+    public void setMyEstates(Map<String, Estate> myEstates) {
         this.myEstates = myEstates;
     }
 
@@ -40,6 +50,7 @@ public class Landlord extends User {
         this.reviews = reviews;
     }
 
+
     public void update(LandlordDto landlordDto) {
         setName(landlordDto.getName());
         setEmail(landlordDto.getEmail());
@@ -48,6 +59,4 @@ public class Landlord extends User {
         setAge(landlordDto.getAge());
         setGender(landlordDto.getGender());
     }
-
-
 }

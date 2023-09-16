@@ -1,5 +1,6 @@
 package com.eci.ariendamesta.controller;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.tenant.Tenant;
 import com.eci.ariendamesta.model.tenant.TenantDto;
@@ -25,7 +26,7 @@ public class TenantController {
         try {
             Tenant tenant = tenantServices.foundById(idTenant);
             return ResponseEntity.ok(tenant);
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -35,7 +36,7 @@ public class TenantController {
         try{
             Tenant newTenant = tenantServices.createTenant(Tenant);
             return ResponseEntity.created(URI.create("")).body(newTenant);
-        } catch (UserException e){
+        } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -45,7 +46,7 @@ public class TenantController {
         try {
             Tenant Tenant = tenantServices.updateTenant(idTenant, tenantBody);
             return ResponseEntity.ok(Tenant);
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -55,7 +56,7 @@ public class TenantController {
         try {
             tenantServices.deleteTenant(idTenant);
             return ResponseEntity.ok().build();
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

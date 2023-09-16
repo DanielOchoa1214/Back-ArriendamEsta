@@ -1,5 +1,6 @@
 package com.eci.ariendamesta.controller;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.landlord.Landlord;
 import com.eci.ariendamesta.model.landlord.LandlordDto;
@@ -24,7 +25,7 @@ public class LandlordController {
         try {
             Landlord landlord = landlordServices.foundById(idLandlord);
             return ResponseEntity.ok(landlord);
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -34,7 +35,7 @@ public class LandlordController {
         try{
             Landlord newLandlord = landlordServices.createLandlord(landlord);
             return ResponseEntity.created(URI.create("")).body(newLandlord);
-        } catch (UserException e){
+        } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -44,7 +45,7 @@ public class LandlordController {
         try {
             Landlord landlord = landlordServices.updateLandlord(idLandlord, landlordBody);
             return ResponseEntity.ok(landlord);
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -54,7 +55,7 @@ public class LandlordController {
         try {
             landlordServices.deleteLandlord(idLandlord);
             return ResponseEntity.ok().build();
-        } catch (UserException e) {
+        } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

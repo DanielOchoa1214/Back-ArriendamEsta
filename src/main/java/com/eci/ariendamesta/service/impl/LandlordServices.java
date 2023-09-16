@@ -1,5 +1,6 @@
 package com.eci.ariendamesta.service.impl;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.landlord.Landlord;
 import com.eci.ariendamesta.model.landlord.LandlordDto;
@@ -20,7 +21,7 @@ public class LandlordServices implements LandlordServiceInterface {
     }
 
     @Override
-    public Landlord foundById(String idLandlord) throws UserException {
+    public Landlord foundById(String idLandlord) throws AppExceptions {
         Optional<Landlord> landlord = landlordRepository.findById(idLandlord);
         if (landlord.isPresent()) {
             return landlord.get();
@@ -30,7 +31,7 @@ public class LandlordServices implements LandlordServiceInterface {
 
 
     @Override
-    public Landlord createLandlord(Landlord landlord) throws UserException {
+    public Landlord createLandlord(Landlord landlord) throws AppExceptions {
         if(landlordRepository.findById(landlord.getId()).isEmpty()) {
             landlordRepository.save(landlord);
             return foundById(landlord.getId());
@@ -39,24 +40,24 @@ public class LandlordServices implements LandlordServiceInterface {
     }
 
     @Override
-    public Landlord updateLandlord(String idLandlord, LandlordDto landlordBody) throws UserException {
+    public Landlord updateLandlord(String idLandlord, LandlordDto landlordBody) throws AppExceptions {
         Landlord landlord = foundById(idLandlord);
         try {
             landlord.update(landlordBody);
             landlordRepository.save(landlord);
             return foundById(idLandlord);
         } catch (Exception e) {
-            throw new UserException(UserException.NOT_UPDATE);
+            throw new UserException(UserException.NOT_UPDATED);
         }
     }
 
     @Override
-    public void deleteLandlord(String idLandlord) throws UserException {
+    public void deleteLandlord(String idLandlord) throws AppExceptions {
         Landlord landlord = foundById(idLandlord);
         try {
             landlordRepository.deleteEntity(landlord);
         } catch (Exception e) {
-            throw new UserException(UserException.NOT_DELETE);
+            throw new UserException(UserException.NOT_DELETED);
         }
     }
 }

@@ -15,11 +15,46 @@ public class Review {
         this.author = author;
     }
 
+    public Review(String id, String content, int stars, User author) {
+        this.id = id;
+        this.content = content;
+        this.stars = stars;
+        this.author = author;
+    }
+
+    public Review() {
+
+    }
+
     public String getId() {
         return id;
     }
 
+    public int getStars() {
+        return stars;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 }
