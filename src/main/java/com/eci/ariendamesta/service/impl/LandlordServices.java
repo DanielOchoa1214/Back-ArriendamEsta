@@ -24,8 +24,9 @@ public class LandlordServices implements LandlordServiceInterface {
     LandlordRepositoryInterface landlordRepository;
     TenantRepositoryInterface tenantRepository;
 
-    public LandlordServices(@Autowired LandlordRepositoryInterface landlordRepository) {
+    public LandlordServices(@Autowired LandlordRepositoryInterface landlordRepository, @Autowired TenantRepositoryInterface tenantRepository) {
         this.landlordRepository = landlordRepository;
+        this.tenantRepository = tenantRepository;
     }
 
     @Override
