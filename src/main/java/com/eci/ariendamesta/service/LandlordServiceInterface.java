@@ -1,13 +1,10 @@
 package com.eci.ariendamesta.service;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
-import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.dtos.ReviewDTO;
 import com.eci.ariendamesta.model.landlord.Landlord;
 import com.eci.ariendamesta.model.landlord.LandlordDto;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface LandlordServiceInterface {
@@ -22,5 +19,5 @@ public interface LandlordServiceInterface {
 
     Optional<Review> getReview(String landlordId, String reviewId) throws AppExceptions;
 
-    Optional<Review> postReview(ReviewDTO reviewDTO, String landlordId) throws AppExceptions;
+    Optional<Review> postReview(Review reviewDTO, String landlordId) throws AppExceptions;
 }

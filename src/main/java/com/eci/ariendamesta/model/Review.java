@@ -1,60 +1,47 @@
 package com.eci.ariendamesta.model;
 
-import com.eci.ariendamesta.model.dtos.ReviewDTO;
-
 public class Review {
     private String id;
     private String content;
     private int stars;
-    private User author;
+    private String authorId;
 
-    public Review(ReviewDTO reviewDTO, User author) {
-        this.id = reviewDTO.getId();
-        this.content = reviewDTO.getContent();
-        this.stars = reviewDTO.getStars();
-        this.author = author;
-    }
-
-    public Review(String id, String content, int stars, User author) {
+    public Review(String id, String content, int stars, String authorId) {
         this.id = id;
         this.content = content;
         this.stars = stars;
-        this.author = author;
-    }
-
-    public Review() {
-
+        this.authorId = authorId;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getStars() {
-        return stars;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getContent() {
         return content;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public void setContent(String content) {
         this.content = content;
     }
 
+    public int getStars() {
+        return stars;
+    }
+
     public void setStars(int stars) {
         this.stars = stars;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
     }
 }

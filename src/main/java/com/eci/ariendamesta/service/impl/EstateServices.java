@@ -5,19 +5,20 @@ import com.eci.ariendamesta.exceptions.EstateException;
 import com.eci.ariendamesta.exceptions.PetitionException;
 import com.eci.ariendamesta.exceptions.ReviewException;
 import com.eci.ariendamesta.model.Petition;
+import com.eci.ariendamesta.model.Review;
 import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.estate.Estate;
-import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.dtos.ReviewDTO;
 import com.eci.ariendamesta.model.estate.EstateDto;
 import com.eci.ariendamesta.model.landlord.Landlord;
 import com.eci.ariendamesta.model.tenant.Tenant;
 import com.eci.ariendamesta.repository.LandlordRepositoryInterface;
+import com.eci.ariendamesta.repository.PublicationRepositoryInterface;
 import com.eci.ariendamesta.repository.TenantRepositoryInterface;
 import com.eci.ariendamesta.service.EstateServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,11 +26,14 @@ public class EstateServices implements EstateServiceInterface {
 
     private final LandlordRepositoryInterface landlordRepository;
     private final TenantRepositoryInterface tenantRepository;
+    private final PublicationRepositoryInterface publicationRepository;
 
     public EstateServices(@Autowired LandlordRepositoryInterface landlordRepository,
-                          @Autowired TenantRepositoryInterface tenantRepository) {
+                          @Autowired TenantRepositoryInterface tenantRepository,
+                          @Autowired PublicationRepositoryInterface publicationRepository) {
         this.landlordRepository = landlordRepository;
         this.tenantRepository = tenantRepository;
+        this.publicationRepository = publicationRepository;
     }
 
 
@@ -47,6 +51,7 @@ public class EstateServices implements EstateServiceInterface {
         Optional<Estate> estateOptional = landlord.getEstate(newEstate.getId());
         if (estateOptional.isEmpty()) {
             Estate estate = landlord.addEstate(newEstate);
+            publicationRepository.save(estate);
             landlordRepository.save(landlord);
             return estate;
         }
@@ -78,12 +83,20 @@ public class EstateServices implements EstateServiceInterface {
     }
 
     @Override
-    public Optional<Review> postReview(ReviewDTO reviewDTO, Landlord landlord, String estateId) throws AppExceptions {
+    public List<Estate> getEstates() throws AppExceptions {
+        try {
+            return publicationRepository.getEstates();
+        } catch (Exception e) {
+            throw new EstateException(EstateException.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public Optional<Review> postReview(Review review, Landlord landlord, String estateId) throws AppExceptions {
         Estate estate = getEstate(estateId, landlord);
-        System.out.println(reviewDTO.getContent());
-        Optional<Tenant> reviewer = tenantRepository.findById(reviewDTO.getAuthorId());
+        Optional<Tenant> reviewer = tenantRepository.findById(review.getAuthorId());
             if (reviewer.isPresent()) {
-                Review review = new Review(reviewDTO, reviewer.get());
+                //Review review = new Review(reviewDTO, reviewer.get());
                 estate.addReview(review);
                 landlord.addEstate(estate);
                 landlordRepository.save(landlord);
@@ -126,4 +139,5 @@ public class EstateServices implements EstateServiceInterface {
         }
         throw new ReviewException(PetitionException.NOT_FOUND);
     }
+
 }

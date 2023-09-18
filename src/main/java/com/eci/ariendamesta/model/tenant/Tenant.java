@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Document(collection = "Tenants")
 public class Tenant extends User {
-    private List<Review> reviews = new ArrayList<>();
+    //private List<Review> reviews = new ArrayList<>();
     private List<Petition> petitions =  new ArrayList<>();
 
     public Tenant(String id, String name, String email, String password, String contact, String age, Gender gender) {

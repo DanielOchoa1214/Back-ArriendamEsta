@@ -1,21 +1,16 @@
 package com.eci.ariendamesta.controller;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
-import com.eci.ariendamesta.exceptions.EstateException;
-import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.Petition;
-import com.eci.ariendamesta.model.User;
 import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.model.estate.Estate;
 import com.eci.ariendamesta.model.estate.EstateDto;
 import com.eci.ariendamesta.model.landlord.Landlord;
-import com.eci.ariendamesta.repository.LandlordRepositoryInterface;
 import com.eci.ariendamesta.service.LandlordServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.dtos.ReviewDTO;
 import com.eci.ariendamesta.service.EstateServiceInterface;
 
 import java.net.URI;
@@ -92,7 +87,7 @@ public class EstateController {
     }
 
     @PostMapping("/{estateId}/review")
-    public ResponseEntity<?> postReview(@RequestBody ReviewDTO review, @PathVariable("landlordId") String landlordId,
+    public ResponseEntity<?> postReview(@RequestBody Review review, @PathVariable("landlordId") String landlordId,
                                         @PathVariable("estateId") String estateId){
         try {
             Landlord landlord = landlordServices.foundById(landlordId);
@@ -127,4 +122,5 @@ public class EstateController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 }

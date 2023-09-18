@@ -2,13 +2,14 @@ package com.eci.ariendamesta.model.estate;
 
 import com.eci.ariendamesta.model.Petition;
 import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.landlord.LandlordDto;
-import org.springframework.data.annotation.Id;
+import com.eci.ariendamesta.model.State;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Document("Estates")
 public class Estate {
 
     private String id;
@@ -19,6 +20,7 @@ public class Estate {
     private String title;
     private List<Review> reviews = new ArrayList<>();
     private List<Petition> petitions = new ArrayList<>();
+    private State stateEstate;
 
     public Estate(String id, String location, int price, String description, int squareMeters, String title) {
         this.id = id;
@@ -27,6 +29,7 @@ public class Estate {
         this.description = description;
         this.squareMeters = squareMeters;
         this.title = title;
+        this.stateEstate = State.NOT_RENTED;
     }
 
     public void addReview(Review review){
@@ -61,6 +64,10 @@ public class Estate {
 
     public int getPrice() {
         return price;
+    }
+
+    public State getStateEstate() {
+        return stateEstate;
     }
 
     public int getSquareMeters() {
