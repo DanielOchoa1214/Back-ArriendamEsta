@@ -50,6 +50,19 @@ public class Landlord extends User {
         this.reviews = reviews;
     }
 
+    public Optional<Review> getReview(String reviewId){
+        for (Review r: reviews){
+            if (r.getId().equals(reviewId)){
+                return Optional.of(r);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public void addReview(Review review){
+        reviews.add(review);
+    }
+
 
     public void update(LandlordDto landlordDto) {
         setName(landlordDto.getName());
