@@ -2,14 +2,20 @@ package com.eci.ariendamesta.controller;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.UserException;
+import com.eci.ariendamesta.model.Review;
+import com.eci.ariendamesta.model.dtos.PetitionDTO;
+import com.eci.ariendamesta.model.dtos.ReviewDTO;
 import com.eci.ariendamesta.model.landlord.Landlord;
 import com.eci.ariendamesta.model.landlord.LandlordDto;
 import com.eci.ariendamesta.service.LandlordServiceInterface;
+import com.eci.ariendamesta.service.impl.LandlordServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/v1/user/landlord")
@@ -56,6 +62,26 @@ public class LandlordController {
             landlordServices.deleteLandlord(idLandlord);
             return ResponseEntity.ok().build();
         } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/{landlordId}/review/{reviewId}")
+    public ResponseEntity<?> getReview(@PathVariable("reviewId") String reviewId, @PathVariable("landlordId") String landlordId){
+        try{
+            Optional<Review> review = landlordServices.getReview(landlordId, reviewId);
+            return ResponseEntity.ok(review);
+        } catch (AppExceptions e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{landlordId}/review")
+    public ResponseEntity<?> postReview(@PathVariable("landlordId") String landlordId, @RequestBody ReviewDTO reviewDTO){
+        try{
+            Optional<Review> review = landlordServices.postReview(reviewDTO, landlordId);
+            return ResponseEntity.ok(review.get());
+        } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
