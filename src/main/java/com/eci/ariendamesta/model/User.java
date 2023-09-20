@@ -12,6 +12,7 @@ public abstract class User {
     private String contact;
     private String age;
     private Gender gender;
+    protected List<Roles> roles;
 
     protected List<Review> reviews = new ArrayList<>();
 
@@ -100,5 +101,9 @@ public abstract class User {
             }
         }
         return Optional.empty();
+    }
+
+    public List<Roles> getRoles() {
+        return roles;
     }
 }

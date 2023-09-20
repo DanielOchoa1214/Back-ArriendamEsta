@@ -26,7 +26,7 @@ public class TenantController {
     @GetMapping("/{tenantId}")
     public ResponseEntity<?> readTenant(@PathVariable("tenantId") String idTenant) {
         try {
-            Tenant tenant = tenantServices.foundById(idTenant);
+            Tenant tenant = tenantServices.findById(idTenant);
             return ResponseEntity.ok(tenant);
         } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();

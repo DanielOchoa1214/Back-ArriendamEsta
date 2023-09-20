@@ -2,6 +2,7 @@ package com.eci.ariendamesta.model.estate;
 
 import com.eci.ariendamesta.model.Petition;
 import com.eci.ariendamesta.model.Review;
+import com.eci.ariendamesta.model.Roles;
 import com.eci.ariendamesta.model.State;
 import org.springframework.data.mongodb.core.mapping.Document;
 

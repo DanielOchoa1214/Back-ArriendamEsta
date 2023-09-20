@@ -9,6 +9,8 @@ public interface TenantRepositoryInterface {
 
     Optional<Tenant> findById(String idTenant);
 
+    Optional<Tenant> findByEmail(String email);
+
     void deleteEntity(Tenant tenant);
 
     Tenant update(Tenant tenant);

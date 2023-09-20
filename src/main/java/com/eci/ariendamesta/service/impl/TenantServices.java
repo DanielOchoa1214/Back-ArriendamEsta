@@ -31,13 +31,13 @@ public class TenantServices implements TenantServiceInterface {
     public Tenant createTenant(Tenant tenant) throws AppExceptions {
         if(tenantRepository.findById(tenant.getId()).isEmpty()) {
             tenantRepository.save(tenant);
-            return foundById(tenant.getId());
+            return findById(tenant.getId());
         }
         throw new UserException(UserException.NOT_CREATED);
     }
 
     @Override
-    public Tenant foundById(String idTenant) throws AppExceptions {
+    public Tenant findById(String idTenant) throws AppExceptions {
         Optional<Tenant> tenant = tenantRepository.findById(idTenant);
         if (tenant.isPresent()) {
             return tenant.get();
@@ -46,12 +46,21 @@ public class TenantServices implements TenantServiceInterface {
     }
 
     @Override
+    public Tenant findByEmail(String email) throws AppExceptions {
+        Optional<Tenant> tenant = tenantRepository.findByEmail(email);
+        if (tenant.isPresent()) {
+            return tenant.get();
+        }
+        throw new UserException(UserException.NOT_FOUND);
+    }
+
+    @Override
     public Tenant updateTenant(String idTenant, TenantDto tenantBody) throws AppExceptions {
-        Tenant tenant = foundById(idTenant);
+        Tenant tenant = findById(idTenant);
         try {
             tenant.update(tenantBody);
             tenantRepository.save(tenant);
-            return foundById(idTenant);
+            return findById(idTenant);
         } catch (Exception e) {
             throw new UserException(UserException.NOT_UPDATED);
         }
@@ -59,7 +68,7 @@ public class TenantServices implements TenantServiceInterface {
 
     @Override
     public void deleteTenant(String tenantId) throws AppExceptions {
-        Tenant tenant = foundById(tenantId);
+        Tenant tenant = findById(tenantId);
         try {
             tenantRepository.deleteEntity(tenant);
         } catch (Exception e) {
@@ -70,7 +79,7 @@ public class TenantServices implements TenantServiceInterface {
     @Override
     public Optional<Review> getReview(String tenantId, String reviewId) throws AppExceptions {
         try{
-            Tenant tenant = foundById(tenantId);
+            Tenant tenant = findById(tenantId);
             return tenant.getReview(reviewId);
         } catch (Exception e) {
             throw new ReviewException(ReviewException.NOT_FOUND);
@@ -79,7 +88,7 @@ public class TenantServices implements TenantServiceInterface {
 
     @Override
     public Optional<Review> postReview(Review review, String tenantId) throws AppExceptions {
-        Tenant tenant = foundById(tenantId);
+        Tenant tenant = findById(tenantId);
         Optional<Landlord> landlord = landlordRepository.findById(review.getAuthorId());
         if (landlord.isPresent()){
             //Review review = new Review();

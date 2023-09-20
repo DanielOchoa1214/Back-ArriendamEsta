@@ -1,12 +1,10 @@
 package com.eci.ariendamesta.model.tenant;
 
-import com.eci.ariendamesta.model.Gender;
-import com.eci.ariendamesta.model.Petition;
-import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.User;
+import com.eci.ariendamesta.model.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +15,7 @@ public class Tenant extends User {
 
     public Tenant(String id, String name, String email, String password, String contact, String age, Gender gender) {
         super(id, name, email, password, contact, age, gender);
+        roles = new ArrayList<>(Collections.singleton( Roles.TENANT ));
     }
 
     public List<Review> getReviews() {

@@ -29,6 +29,11 @@ public class LocalTenantRepository implements TenantRepositoryInterface{
     }
 
     @Override
+    public Optional<Tenant> findByEmail(String email) {
+        return Optional.empty();
+    }
+
+    @Override
     public Tenant update(Tenant tenant) {
         return null;
     }

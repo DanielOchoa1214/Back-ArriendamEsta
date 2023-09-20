@@ -29,6 +29,11 @@ public class MongoTenantRepository implements TenantRepositoryInterface {
     }
 
     @Override
+    public Optional<Tenant> findByEmail(String email) {
+        return mongoDB.findByEmail(email);
+    }
+
+    @Override
     public void deleteEntity(Tenant tenant) {
         mongoDB.delete(tenant);
     }

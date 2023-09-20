@@ -9,7 +9,9 @@ import java.util.Optional;
 
 public interface LandlordServiceInterface {
 
-    Landlord foundById(String idLandlord) throws AppExceptions;
+    Landlord findById(String idLandlord) throws AppExceptions;
+
+    Landlord findByEmail(String email) throws AppExceptions;
 
     Landlord createLandlord(Landlord landlord) throws AppExceptions;
 

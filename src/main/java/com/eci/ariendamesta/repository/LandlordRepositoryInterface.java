@@ -9,7 +9,10 @@ public interface LandlordRepositoryInterface {
 
     Optional<Landlord> findById(String idLandlord);
 
+    Optional<Landlord> findByEmail(String email);
+
     void deleteEntity(Landlord landlord);
 
     Landlord update(Landlord landlord);
+
 }

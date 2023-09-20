@@ -27,8 +27,17 @@ public class LandlordServices implements LandlordServiceInterface {
     }
 
     @Override
-    public Landlord foundById(String idLandlord) throws AppExceptions {
+    public Landlord findById(String idLandlord) throws AppExceptions {
         Optional<Landlord> landlord = landlordRepository.findById(idLandlord);
+        if (landlord.isPresent()) {
+            return landlord.get();
+        }
+        throw new UserException(UserException.NOT_FOUND);
+    }
+
+    @Override
+    public Landlord findByEmail(String email) throws AppExceptions {
+        Optional<Landlord> landlord = landlordRepository.findByEmail(email);
         if (landlord.isPresent()) {
             return landlord.get();
         }
@@ -40,18 +49,18 @@ public class LandlordServices implements LandlordServiceInterface {
     public Landlord createLandlord(Landlord landlord) throws AppExceptions {
         if(landlordRepository.findById(landlord.getId()).isEmpty()) {
             landlordRepository.save(landlord);
-            return foundById(landlord.getId());
+            return findById(landlord.getId());
         }
         throw new UserException(UserException.NOT_CREATED);
     }
 
     @Override
     public Landlord updateLandlord(String idLandlord, LandlordDto landlordBody) throws AppExceptions {
-        Landlord landlord = foundById(idLandlord);
+        Landlord landlord = findById(idLandlord);
         try {
             landlord.update(landlordBody);
             landlordRepository.save(landlord);
-            return foundById(idLandlord);
+            return findById(idLandlord);
         } catch (Exception e) {
             throw new UserException(UserException.NOT_UPDATED);
         }
@@ -59,7 +68,7 @@ public class LandlordServices implements LandlordServiceInterface {
 
     @Override
     public void deleteLandlord(String idLandlord) throws AppExceptions {
-        Landlord landlord = foundById(idLandlord);
+        Landlord landlord = findById(idLandlord);
         try {
             landlordRepository.deleteEntity(landlord);
         } catch (Exception e) {
@@ -70,7 +79,7 @@ public class LandlordServices implements LandlordServiceInterface {
     @Override
     public Optional<Review> getReview(String landlordId, String reviewId) throws AppExceptions {
         try{
-            Landlord landlord = foundById(landlordId);
+            Landlord landlord = findById(landlordId);
             Optional<Review> review = landlord.getReview(reviewId);
             return review;
         } catch (Exception e){
@@ -80,7 +89,7 @@ public class LandlordServices implements LandlordServiceInterface {
 
     @Override
     public Optional<Review> postReview(Review review, String landlordId) throws AppExceptions {
-        Landlord landlord = foundById(landlordId);
+        Landlord landlord = findById(landlordId);
         Optional<Tenant> tenant = tenantRepository.findById(review.getAuthorId());
         if (tenant.isPresent()){
             //Review review = new Review();

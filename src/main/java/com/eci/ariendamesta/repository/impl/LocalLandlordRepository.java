@@ -32,6 +32,11 @@ public class LocalLandlordRepository implements LandlordRepositoryInterface {
     }
 
     @Override
+    public Optional<Landlord> findByEmail(String email) {
+        return Optional.empty();
+    }
+
+    @Override
     public void deleteEntity(Landlord landlord) {
         landlordMap.remove(landlord.getId());
     }

@@ -14,6 +14,7 @@ public class Landlord extends User {
 
     public Landlord(String id, String name, String email, String password, String contact, String age, Gender gender) {
         super(id, name, email, password, contact, age, gender);
+        roles = new ArrayList<>(Collections.singleton( Roles.LANDLORD ));
     }
 
     public Estate addEstate(Estate estate) {
