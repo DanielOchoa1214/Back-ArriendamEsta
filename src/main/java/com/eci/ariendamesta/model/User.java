@@ -2,31 +2,33 @@ package com.eci.ariendamesta.model;
 
 import com.eci.ariendamesta.model.dtos.UserDTO;
 
+import java.util.Date;
+
 public abstract class User {
     private String id;
     private String name;
     private String email;
     private String password;
-    private String contact;
-    private String age;
+    private String phoneNumber;
+    private Date birthDate;
     private Gender gender;
 
-    public User(String id, String name, String email, String password, String contact, String age, Gender gender) {
+    public User(String id, String name, String email, String password, String phoneNumber, Date birthDate, Gender gender) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.contact = contact;
-        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
         this.gender = gender;
     }
 
-    public User(String name, String email, String password, String contact, String age, Gender gender) {
+    public User(String name, String email, String password, String phoneNumber, Date birthDate, Gender gender) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.contact = contact;
-        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
         this.gender = gender;
     }
     public String getId() {
@@ -61,20 +63,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Gender getGender() {
@@ -85,12 +79,20 @@ public abstract class User {
         this.gender = gender;
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public void update(UserDTO userDTO) {
         setName(userDTO.getName());
         setEmail(userDTO.getEmail());
         setPassword(userDTO.getPassword());
-        setContact(userDTO.getContact());
-        setAge(userDTO.getAge());
+        setPhoneNumber(userDTO.getContact());
+        setBirthDate(userDTO.getBirthDate());
         setGender(userDTO.getGender());
     }
 }
