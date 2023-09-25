@@ -1,22 +1,12 @@
 package com.eci.ariendamesta.service.impl;
 
-import com.eci.ariendamesta.exceptions.AppExceptions;
-import com.eci.ariendamesta.exceptions.ReviewException;
-import com.eci.ariendamesta.exceptions.UserException;
-import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.landlord.Landlord;
-import com.eci.ariendamesta.model.landlord.LandlordDto;
-import com.eci.ariendamesta.model.tenant.Tenant;
-import com.eci.ariendamesta.repository.LandlordRepositoryInterface;
-import com.eci.ariendamesta.repository.TenantRepositoryInterface;
-import com.eci.ariendamesta.service.LandlordServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.eci.ariendamesta.service.servinterfaces.UserServiceInterface;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
-public class LandlordServices implements LandlordServiceInterface {
+public class UserService implements UserServiceInterface {
+/*
 
     LandlordRepositoryInterface landlordRepository;
     TenantRepositoryInterface tenantRepository;
@@ -27,8 +17,8 @@ public class LandlordServices implements LandlordServiceInterface {
     }
 
     @Override
-    public Landlord foundById(String idLandlord) throws AppExceptions {
-        Optional<Landlord> landlord = landlordRepository.findById(idLandlord);
+    public HomeOwner foundById(String idLandlord) throws AppExceptions {
+        Optional<HomeOwner> landlord = landlordRepository.findById(idLandlord);
         if (landlord.isPresent()) {
             return landlord.get();
         }
@@ -37,7 +27,7 @@ public class LandlordServices implements LandlordServiceInterface {
 
 
     @Override
-    public Landlord createLandlord(Landlord landlord) throws AppExceptions {
+    public HomeOwner createLandlord(HomeOwner landlord) throws AppExceptions {
         if(landlordRepository.findById(landlord.getId()).isEmpty()) {
             landlordRepository.save(landlord);
             return foundById(landlord.getId());
@@ -46,8 +36,8 @@ public class LandlordServices implements LandlordServiceInterface {
     }
 
     @Override
-    public Landlord updateLandlord(String idLandlord, LandlordDto landlordBody) throws AppExceptions {
-        Landlord landlord = foundById(idLandlord);
+    public HomeOwner updateLandlord(String idLandlord, HomeOwnerDto landlordBody) throws AppExceptions {
+        HomeOwner landlord = foundById(idLandlord);
         try {
             landlord.update(landlordBody);
             landlordRepository.save(landlord);
@@ -59,7 +49,7 @@ public class LandlordServices implements LandlordServiceInterface {
 
     @Override
     public void deleteLandlord(String idLandlord) throws AppExceptions {
-        Landlord landlord = foundById(idLandlord);
+        HomeOwner landlord = foundById(idLandlord);
         try {
             landlordRepository.deleteEntity(landlord);
         } catch (Exception e) {
@@ -70,7 +60,7 @@ public class LandlordServices implements LandlordServiceInterface {
     @Override
     public Optional<Review> getReview(String landlordId, String reviewId) throws AppExceptions {
         try{
-            Landlord landlord = foundById(landlordId);
+            HomeOwner landlord = foundById(landlordId);
             Optional<Review> review = landlord.getReview(reviewId);
             return review;
         } catch (Exception e){
@@ -80,8 +70,8 @@ public class LandlordServices implements LandlordServiceInterface {
 
     @Override
     public Optional<Review> postReview(Review review, String landlordId) throws AppExceptions {
-        Landlord landlord = foundById(landlordId);
-        Optional<Tenant> tenant = tenantRepository.findById(review.getAuthorId());
+        HomeOwner landlord = foundById(landlordId);
+        Optional<HomeRenter> tenant = tenantRepository.findById(review.getAuthorId());
         if (tenant.isPresent()){
             //Review review = new Review();
             landlord.addReview(review);
@@ -90,5 +80,6 @@ public class LandlordServices implements LandlordServiceInterface {
         }
         throw new ReviewException(ReviewException.NOT_CREATED);
     }
+*/
 
 }

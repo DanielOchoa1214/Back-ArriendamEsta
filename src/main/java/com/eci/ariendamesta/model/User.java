@@ -1,8 +1,6 @@
 package com.eci.ariendamesta.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.eci.ariendamesta.model.dtos.UserDTO;
 
 public abstract class User {
     private String id;
@@ -12,8 +10,6 @@ public abstract class User {
     private String contact;
     private String age;
     private Gender gender;
-
-    protected List<Review> reviews = new ArrayList<>();
 
     public User(String id, String name, String email, String password, String contact, String age, Gender gender) {
         this.id = id;
@@ -89,16 +85,12 @@ public abstract class User {
         this.gender = gender;
     }
 
-    public void addReview(Review review) {
-        reviews.add(review);
-    }
-
-    public Optional<Review> getReview(String reviewId) {
-        for (Review r: reviews){
-            if (r.getId().equals(reviewId)){
-                return Optional.of(r);
-            }
-        }
-        return Optional.empty();
+    public void update(UserDTO userDTO) {
+        setName(userDTO.getName());
+        setEmail(userDTO.getEmail());
+        setPassword(userDTO.getPassword());
+        setContact(userDTO.getContact());
+        setAge(userDTO.getAge());
+        setGender(userDTO.getGender());
     }
 }

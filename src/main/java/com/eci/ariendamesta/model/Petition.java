@@ -1,13 +1,13 @@
 package com.eci.ariendamesta.model;
 
 import com.eci.ariendamesta.model.dtos.PetitionDTO;
-import com.eci.ariendamesta.model.tenant.Tenant;
 
 public class Petition {
     private String id;
     private boolean acepted;
     private String content;
     private String authorId;
+    private String propertyId;
 
     public Petition(String id,Boolean acepted, String content, String authorId){
         this.id = id;

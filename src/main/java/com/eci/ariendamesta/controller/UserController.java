@@ -1,21 +1,11 @@
 package com.eci.ariendamesta.controller;
 
-import com.eci.ariendamesta.exceptions.AppExceptions;
-import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.landlord.Landlord;
-import com.eci.ariendamesta.model.landlord.LandlordDto;
-import com.eci.ariendamesta.service.LandlordServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.util.Optional;
-
 @RestController
-@RequestMapping(value = "/v1/user/landlord")
-public class LandlordController {
-    private LandlordServiceInterface landlordServices;
+@RequestMapping("/v1/user")
+public class UserController {
+/*    private LandlordServiceInterface landlordServices;
 
     public LandlordController(@Autowired LandlordServiceInterface landlordServices){
         this.landlordServices = landlordServices;
@@ -24,7 +14,7 @@ public class LandlordController {
     @GetMapping("/{idLandlord}")
     public ResponseEntity<?> readLandlord(@PathVariable("idLandlord") String idLandlord) {
         try {
-            Landlord landlord = landlordServices.foundById(idLandlord);
+            HomeOwner landlord = landlordServices.foundById(idLandlord);
             return ResponseEntity.ok(landlord);
         } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
@@ -32,9 +22,9 @@ public class LandlordController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createLandlord(@RequestBody Landlord landlord){
+    public ResponseEntity<?> createLandlord(@RequestBody HomeOwner landlord){
         try{
-            Landlord newLandlord = landlordServices.createLandlord(landlord);
+            HomeOwner newLandlord = landlordServices.createLandlord(landlord);
             return ResponseEntity.created(URI.create("")).body(newLandlord);
         } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -42,9 +32,9 @@ public class LandlordController {
     }
 
     @PutMapping("/{idLandlord}")
-    public ResponseEntity<?> updateLandlord(@PathVariable("idLandlord") String idLandlord, @RequestBody LandlordDto landlordBody) {
+    public ResponseEntity<?> updateLandlord(@PathVariable("idLandlord") String idLandlord, @RequestBody HomeOwnerDto landlordBody) {
         try {
-            Landlord landlord = landlordServices.updateLandlord(idLandlord, landlordBody);
+            HomeOwner landlord = landlordServices.updateLandlord(idLandlord, landlordBody);
             return ResponseEntity.ok(landlord);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -79,5 +69,5 @@ public class LandlordController {
         } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-    }
+    }*/
 }

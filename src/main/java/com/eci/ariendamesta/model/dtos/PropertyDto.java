@@ -1,11 +1,11 @@
-package com.eci.ariendamesta.model.estate;
+package com.eci.ariendamesta.model.dtos;
 
-public class EstateDto {
+public class PropertyDto {
 
     private int price;
     private String description;
     private String title;
-    public EstateDto(int price, String description, String title) {
+    public PropertyDto(int price, String description, String title) {
         this.price = price;
         this.description = description;
         this.title = title;

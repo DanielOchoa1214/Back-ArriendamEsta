@@ -5,12 +5,16 @@ public class Review {
     private String content;
     private int stars;
     private String authorId;
+    private String targetId;
+    private String name;
 
-    public Review(String id, String content, int stars, String authorId) {
+    public Review(String id, String content, int stars, String authorId, String targetId, String name) {
         this.id = id;
         this.content = content;
         this.stars = stars;
         this.authorId = authorId;
+        this.targetId = targetId;
+        this.name = name;
     }
 
     public String getId() {

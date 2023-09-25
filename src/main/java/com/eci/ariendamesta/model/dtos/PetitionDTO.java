@@ -1,7 +1,5 @@
 package com.eci.ariendamesta.model.dtos;
 
-import com.eci.ariendamesta.model.tenant.Tenant;
-
 public class PetitionDTO {
 
     private String id;

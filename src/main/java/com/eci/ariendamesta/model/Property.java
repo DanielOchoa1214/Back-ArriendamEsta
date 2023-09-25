@@ -1,38 +1,31 @@
-package com.eci.ariendamesta.model.estate;
+package com.eci.ariendamesta.model;
 
-import com.eci.ariendamesta.model.Petition;
-import com.eci.ariendamesta.model.Review;
-import com.eci.ariendamesta.model.State;
+import com.eci.ariendamesta.model.dtos.PropertyDto;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 @Document("Estates")
-public class Estate {
-
+public class Property {
     private String id;
     private String location;
     private int price;
     private String description;
     private int squareMeters;
     private String title;
-    private List<Review> reviews = new ArrayList<>();
-    private List<Petition> petitions = new ArrayList<>();
     private State stateEstate;
+    private String homeOwnerId;
 
-    public Estate(String id, String location, int price, String description, int squareMeters, String title) {
+    public Property(String id, String location, int price, String description, int squareMeters, String title, State stateEstate, String homeOwnerId) {
         this.id = id;
         this.location = location;
         this.price = price;
         this.description = description;
         this.squareMeters = squareMeters;
         this.title = title;
-        this.stateEstate = State.NOT_RENTED;
+        this.stateEstate = stateEstate;
+        this.homeOwnerId = homeOwnerId;
     }
 
-    public void addReview(Review review){
+    /*public void addReview(Review review){
         reviews.add(review);
     }
 
@@ -56,7 +49,7 @@ public class Estate {
             }
         }
         return Optional.empty();
-    }
+    }*/
 
     public String getId() {
         return id;
@@ -72,14 +65,6 @@ public class Estate {
 
     public int getSquareMeters() {
         return squareMeters;
-    }
-
-    public List<Petition> getPetitions() {
-        return petitions;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
     }
 
     public String getDescription() {
@@ -106,16 +91,8 @@ public class Estate {
         this.location = location;
     }
 
-    public void setPetitions(List<Petition> petitions) {
-        this.petitions = petitions;
-    }
-
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public void setReviews(List<Review> reviews) {
-
     }
 
     public void setSquareMeters(int squareMeters) {
@@ -126,7 +103,7 @@ public class Estate {
         this.title = title;
     }
 
-    public void update(EstateDto estateDto) {
+    public void update(PropertyDto estateDto) {
         this.title = estateDto.getTitle();
         this.description = estateDto.getDescription();
         this.price = estateDto.getPrice();
