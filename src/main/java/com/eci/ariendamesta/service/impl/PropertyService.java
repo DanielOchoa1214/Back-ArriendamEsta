@@ -1,11 +1,67 @@
 package com.eci.ariendamesta.service.impl;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
+import com.eci.ariendamesta.exceptions.PropertyException;
+import com.eci.ariendamesta.model.Property;
+import com.eci.ariendamesta.model.dtos.PropertyDTO;
+import com.eci.ariendamesta.repository.repointerfaces.PropertyRepositoryInterface;
 import com.eci.ariendamesta.service.servinterfaces.PropertyServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
 public class PropertyService implements PropertyServiceInterface {
+
+    private final PropertyRepositoryInterface propertyRepository;
+
+    public PropertyService(@Autowired PropertyRepositoryInterface propertyRepository) {
+        this.propertyRepository = propertyRepository;
+    }
+
+    @Override
+    public Property findProperty(String propertyId) throws AppExceptions {
+        Optional<Property> property = propertyRepository.findById(propertyId);
+        if (property.isPresent()) {
+            return property.get();
+        }
+        throw new PropertyException(PropertyException.NOT_FOUND);
+    }
+
+    @Override
+    public Property createProperty(PropertyDTO propertyDTO) throws AppExceptions {
+        Optional<Property> propertyOptional = propertyRepository.findById(propertyDTO.getId());
+        if (propertyOptional.isEmpty()) {
+            Property property = new Property(propertyDTO);
+            propertyRepository.save(property);
+            return property;
+        }
+        throw new PropertyException(PropertyException.NOT_CREATED);
+    }
+
+    @Override
+    public Property updateProperty(String propertyId, PropertyDTO propertyDTO) throws AppExceptions {
+        Property property = findProperty(propertyId);
+        property.update(propertyDTO);
+        try {
+            propertyRepository.save(property);
+            return property;
+        } catch (Exception e) {
+            throw new PropertyException(PropertyException.NOT_CREATED);
+        }
+    }
+
+    @Override
+    public void deleteProperty(String propertyId) throws AppExceptions {
+        Property property = findProperty(propertyId);
+        try {
+            propertyRepository.deleteEntity(property);
+        } catch (Exception e) {
+            throw new PropertyException(PropertyException.NOT_DELETED);
+        }
+    }
 /*
 
     private final LandlordRepositoryInterface landlordRepository;

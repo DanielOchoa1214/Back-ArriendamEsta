@@ -1,9 +1,9 @@
 package com.eci.ariendamesta.model;
 
-import com.eci.ariendamesta.model.dtos.PropertyDto;
+import com.eci.ariendamesta.model.dtos.PropertyDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("Estates")
+@Document("property")
 public class Property {
     private String id;
     private String location;
@@ -25,6 +25,18 @@ public class Property {
         this.homeOwnerId = homeOwnerId;
     }
 
+    public Property(PropertyDTO propertyDTO) {
+        this.id = propertyDTO.getId();
+        this.location = propertyDTO.getLocation();
+        this.price = propertyDTO.getPrice();
+        this.description = propertyDTO.getDescription();
+        this.squareMeters = propertyDTO.getSquareMeters();
+        this.title = propertyDTO.getTitle();
+        this.stateEstate = propertyDTO.getStateEstate();
+        this.homeOwnerId = propertyDTO.getHomeOwnerId();
+    }
+
+    public Property() {}
     /*public void addReview(Review review){
         reviews.add(review);
     }
@@ -51,61 +63,43 @@ public class Property {
         return Optional.empty();
     }*/
 
+
     public String getId() {
         return id;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public State getStateEstate() {
-        return stateEstate;
-    }
-
-    public int getSquareMeters() {
-        return squareMeters;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getLocation() {
         return location;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getSquareMeters() {
+        return squareMeters;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public State getStateEstate() {
+        return stateEstate;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getHomeOwnerId() {
+        return homeOwnerId;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public void setSquareMeters(int squareMeters) {
-        this.squareMeters = squareMeters;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void update(PropertyDto estateDto) {
-        this.title = estateDto.getTitle();
-        this.description = estateDto.getDescription();
-        this.price = estateDto.getPrice();
+    public void update(PropertyDTO propertyDTO) {
+        this.title = propertyDTO.getTitle();
+        this.description = propertyDTO.getDescription();
+        this.price = propertyDTO.getPrice();
+        this.stateEstate = propertyDTO.getStateEstate();
     }
 }

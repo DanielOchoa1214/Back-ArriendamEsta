@@ -1,12 +1,63 @@
 package com.eci.ariendamesta.controller;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
+import com.eci.ariendamesta.model.Property;
+import com.eci.ariendamesta.model.dtos.PropertyDTO;
+import com.eci.ariendamesta.service.servinterfaces.PropertyServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/property")
 public class PropertyController {
-/*
 
+    private final PropertyServiceInterface estateService;
+
+    public PropertyController(@Autowired  PropertyServiceInterface estateService) {
+        this.estateService = estateService;
+    }
+
+    @GetMapping("/{propertyId}")
+    public ResponseEntity<?> findProperty(@PathVariable("propertyId") String propertyId) {
+        try {
+            Property property = estateService.findProperty(propertyId);
+            return ResponseEntity.ok(property);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> createProperty(@RequestBody PropertyDTO propertyDTO) {
+        try {
+            Property property = estateService.createProperty(propertyDTO);
+            return ResponseEntity.ok(property);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{propertyId}")
+    public ResponseEntity<?> updateProperty(@PathVariable("propertyId") String propertyId, @RequestBody PropertyDTO propertyDTO) {
+        try {
+            Property property = estateService.updateProperty(propertyId, propertyDTO);
+            return ResponseEntity.ok(property);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{propertyId}")
+    public ResponseEntity<?> deleteProperty(@PathVariable("propertyId") String propertyId) {
+        try {
+            estateService.deleteProperty(propertyId);
+            return ResponseEntity.ok().build();
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+/*
     private final PropertyServiceInterface estateServices;
     private final LandlordServiceInterface landlordServices;
 
@@ -15,11 +66,11 @@ public class PropertyController {
         this.estateServices = estateService;
         this.landlordServices = landlordServices;
     }
-    @GetMapping("/{estateId}")
-    public ResponseEntity<?> readEstate(@PathVariable("landlordId") String landlordId, @PathVariable("estateId") String estateId) {
+    @GetMapping("/{propertyId}")
+    public ResponseEntity<?> readEstate(@PathVariable("landlordId") String landlordId, @PathVariable("propertyId") String propertyId) {
         try {
             HomeOwner landlord = landlordServices.foundById(landlordId);
-            Property estate = estateServices.getEstate(estateId, landlord);
+            Property estate = estateServices.getEstate(propertyId, landlord);
             return ResponseEntity.ok(estate);
         } catch (AppExceptions e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -37,11 +88,11 @@ public class PropertyController {
         }
     }
 
-    @PutMapping("/{estateId}")
-    public ResponseEntity<?> updateEstate(@PathVariable("landlordId") String landlordId, @PathVariable("estateId") String estateId, @RequestBody PropertyDto estate) {
+    @PutMapping("/{propertyId}")
+    public ResponseEntity<?> updateEstate(@PathVariable("landlordId") String landlordId, @PathVariable("propertyId") String propertyId, @RequestBody PropertyDto estate) {
         try {
             HomeOwner landlord = landlordServices.foundById(landlordId);
-            Property updateEstate = estateServices.updateEstate(estateId, estate, landlord);
+            Property updateEstate = estateServices.updateEstate(propertyId, estate, landlord);
             return ResponseEntity.ok(updateEstate);
         } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
