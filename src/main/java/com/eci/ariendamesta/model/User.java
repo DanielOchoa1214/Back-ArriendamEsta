@@ -46,6 +46,8 @@ public class User {
         this.gender = userDTO.getGender();
     }
 
+    public User() {}
+
     public String getId() {
         return id;
     }
