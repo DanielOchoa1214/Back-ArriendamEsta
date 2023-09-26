@@ -1,8 +1,7 @@
-package com.eci.ariendamesta.model;
+package com.eci.ariendamesta.model.dtos;
 
-import com.eci.ariendamesta.model.dtos.ReviewDTO;
+public class ReviewDTO {
 
-public class Review {
     private String id;
     private String content;
     private int stars;
@@ -10,22 +9,13 @@ public class Review {
     private String targetId;
     private String name;
 
-    public Review(String id, String content, int stars, String authorId, String targetId, String name) {
+    public ReviewDTO(String id, String content, int stars, String authorId, String targetId, String name){
         this.id = id;
         this.content = content;
         this.stars = stars;
         this.authorId = authorId;
         this.targetId = targetId;
         this.name = name;
-    }
-
-    public Review(ReviewDTO reviewDTO){
-        this.id = reviewDTO.getId();
-        this.authorId = reviewDTO.getAuthorId();
-        this.content = reviewDTO.getContent();
-        this.stars = reviewDTO.getStars();
-        this.targetId = reviewDTO.getTargetId();
-        this.name = reviewDTO.getName();
     }
 
     public String getId() {
@@ -52,6 +42,14 @@ public class Review {
         this.stars = stars;
     }
 
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
     public String getTargetId() {
         return targetId;
     }
@@ -66,22 +64,5 @@ public class Review {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
-
-    public void update(ReviewDTO reviewDTO){
-        this.id = reviewDTO.getId();
-        this.authorId = reviewDTO.getAuthorId();
-        this.content = reviewDTO.getContent();
-        this.stars = reviewDTO.getStars();
-        this.targetId = reviewDTO.getTargetId();
-        this.name = reviewDTO.getName();
     }
 }
