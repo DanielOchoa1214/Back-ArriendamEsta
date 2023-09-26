@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/user")
@@ -21,12 +22,22 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO){
         try{
             User user = services.createUser(userDTO);
             return ResponseEntity.created(URI.create("")).body(user);
         } catch (AppExceptions e){
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable("userId") String userId){
+        try {
+            User user = services.findById(userId);
+            return ResponseEntity.ok(user);
+        } catch (AppExceptions e){
+            return ResponseEntity.notFound().build();
         }
     }
 
