@@ -9,5 +9,5 @@ public interface UserRepositoryInterface {
 
     Optional<User> findById(String userId);
 
-    void deleteEntity(User user);
+    void delete(String userId);
 }

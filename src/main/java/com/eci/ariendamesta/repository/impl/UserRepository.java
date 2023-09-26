@@ -29,7 +29,7 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public void deleteEntity(User user) {
-        mongo.delete(user);
+    public void delete(String userId) {
+        mongo.deleteById(userId);
     }
 }
