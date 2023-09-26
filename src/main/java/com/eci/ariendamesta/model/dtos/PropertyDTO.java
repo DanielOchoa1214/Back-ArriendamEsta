@@ -10,25 +10,25 @@ public class PropertyDTO {
     private String description;
     private int squareMeters;
     private String title;
-    private State stateEstate;
+    private State stateProperty;
     private String homeOwnerId;
 
-    public PropertyDTO(String id, String location, int price, String description, int squareMeters, String title, State stateEstate, String homeOwnerId) {
+    public PropertyDTO(String id, String location, int price, String description, int squareMeters, String title, State stateProperty, String homeOwnerId) {
         this.id = id;
         this.location = location;
         this.price = price;
         this.description = description;
         this.squareMeters = squareMeters;
         this.title = title;
-        this.stateEstate = stateEstate;
+        this.stateProperty = stateProperty;
         this.homeOwnerId = homeOwnerId;
     }
 
-    public PropertyDTO(int price, String description, String title, State stateEstate) {
+    public PropertyDTO(int price, String description, String title, State stateProperty) {
         this.price = price;
         this.description = description;
         this.title = title;
-        this.stateEstate = stateEstate;
+        this.stateProperty = stateProperty;
     }
 
     public PropertyDTO() {}
@@ -57,8 +57,8 @@ public class PropertyDTO {
         return title;
     }
 
-    public State getStateEstate() {
-        return stateEstate;
+    public State getStateProperty() {
+        return stateProperty;
     }
 
     public String getHomeOwnerId() {

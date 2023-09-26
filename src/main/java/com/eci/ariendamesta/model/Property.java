@@ -11,17 +11,17 @@ public class Property {
     private String description;
     private int squareMeters;
     private String title;
-    private State stateEstate;
+    private State stateProperty;
     private String homeOwnerId;
 
-    public Property(String id, String location, int price, String description, int squareMeters, String title, State stateEstate, String homeOwnerId) {
+    public Property(String id, String location, int price, String description, int squareMeters, String title, State stateProperty, String homeOwnerId) {
         this.id = id;
         this.location = location;
         this.price = price;
         this.description = description;
         this.squareMeters = squareMeters;
         this.title = title;
-        this.stateEstate = stateEstate;
+        this.stateProperty = stateProperty;
         this.homeOwnerId = homeOwnerId;
     }
 
@@ -32,7 +32,7 @@ public class Property {
         this.description = propertyDTO.getDescription();
         this.squareMeters = propertyDTO.getSquareMeters();
         this.title = propertyDTO.getTitle();
-        this.stateEstate = propertyDTO.getStateEstate();
+        this.stateProperty = propertyDTO.getStateProperty();
         this.homeOwnerId = propertyDTO.getHomeOwnerId();
     }
 
@@ -88,8 +88,8 @@ public class Property {
         return title;
     }
 
-    public State getStateEstate() {
-        return stateEstate;
+    public State getStateProperty() {
+        return stateProperty;
     }
 
     public String getHomeOwnerId() {
@@ -100,6 +100,6 @@ public class Property {
         this.title = propertyDTO.getTitle();
         this.description = propertyDTO.getDescription();
         this.price = propertyDTO.getPrice();
-        this.stateEstate = propertyDTO.getStateEstate();
+        this.stateProperty = propertyDTO.getStateProperty();
     }
 }
