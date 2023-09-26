@@ -1,27 +1,121 @@
 package com.eci.ariendamesta.service;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
+import com.eci.ariendamesta.exceptions.UserException;
+import com.eci.ariendamesta.model.Gender;
+import com.eci.ariendamesta.model.User;
+import com.eci.ariendamesta.model.dtos.UserRequestDTO;
+import com.eci.ariendamesta.repository.repointerfaces.UserRepositoryInterface;
+import com.eci.ariendamesta.service.impl.UserService;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.text.ParseException;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-public class LandlordServicesTest {
-
-    /*@Mock
-    private LocalLandlordRepository landlordRepository;
+public class UserServicesTest {
 
     @Mock
-    private LocalTenantRepository tenantRepository;
+    private UserRepositoryInterface userRepository;
 
     @InjectMocks
-    private LandlordServices landlordServices;
+    private UserService userService;
 
     @Test
-    public void whenLandlordIsFoundByIdThenReturnLandlord() throws AppExceptions {
-        HomeOwner landlord = new HomeOwner("1", "Prueba", "prueba@mail.com", "31", "12", "12",Gender.MALE);
-        when(landlordRepository.findById(landlord.getId())).thenReturn(Optional.of(landlord));
-        HomeOwner landlord1 = landlordServices.foundById(landlord.getId());
-        assertEquals(landlord, landlord1);
+    public void whenUserIsFoundByIdThenReturnUser() throws AppExceptions, ParseException {
+        // ARRANGE
+        User user = new User("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022", Gender.MALE);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        // ACT
+        User user1 = userService.findById(user.getId());
+        // ASSERT
+        assertEquals(user, user1);
     }
+
+
+    @Test
+    public void whenUserIsNotFoundByIdThenThrowException() throws ParseException {
+        // ARRANGE
+        User user = new User("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022", Gender.MALE);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.empty());
+        // ACT
+        // ASSERT
+        assertThrows(UserException.class, () -> userService.findById(user.getId()));
+    }
+
+    @Test
+    public void whenUserIsCreatedAndDoesNotExistsThenReturnUser() throws AppExceptions, ParseException {
+        // ARRANGE
+        UserRequestDTO dto = new UserRequestDTO("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022", Gender.MALE);
+        User user = new User(dto);
+        when(userRepository.findById(dto.getId())).thenReturn(Optional.empty());
+        when(userRepository.save(any())).thenReturn(user);
+        // ACT
+        User user1 = userService.createUser(dto);
+        // ASSERT
+        assertEquals(user, user1);
+    }
+
+    @Test
+    public void whenUserIsCreatedAndExistsThenThrowsException() throws ParseException {
+        // ARRANGE
+        UserRequestDTO dto = new UserRequestDTO("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022", Gender.MALE);
+        User user = new User(dto);
+        when(userRepository.findById(dto.getId())).thenReturn(Optional.of(user));
+        // ACT
+        // ASSERT
+        assertThrows(UserException.class, () -> userService.createUser(dto));
+    }
+
+    @Test
+    public void whenUpdateUserAndFoundThenReturnUpdatedUser() throws AppExceptions, ParseException {
+        // ARRANGE
+        User user = new User("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022",Gender.MALE);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        // ACT
+        UserRequestDTO dto = new UserRequestDTO("id", "Pedro", "prueba@mail.com", "31", "12", "12/09/2022",Gender.MALE);
+        User user1 = userService.updateUser("1", dto);
+        // ASSERT
+        assertEquals(user.getName(), user1.getName());
+    }
+
+    @Test
+    public void whenUpdateUserAndNotFoundThenThrowException() throws ParseException {
+        // ARRANGE
+        User user = new User("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022",Gender.MALE);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.empty());
+        UserRequestDTO dto = new UserRequestDTO("id", "Pedro", "prueba@mail.com", "31", "12", "12/09/2022",Gender.MALE);
+        // ACT
+        // ASSERT
+        assertThrows(UserException.class, () -> userService.updateUser("1", dto));
+    }
+
+    @Test
+    public void whenDeleteUserAndFoundThenDeleteUser() throws AppExceptions, ParseException {
+        User user = new User("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022",Gender.MALE);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        userService.deleteUser(user.getId());
+    }
+
+    @Test
+    public void whenDeleteUserAndNotFoundThenThrowException() throws AppExceptions, ParseException {
+        when(userRepository.findById("1")).thenReturn(Optional.empty());
+        assertThrows(UserException.class, () -> userService.deleteUser("1"));
+    }
+
+
+    /*
+
+
 
     @Test
     public void whenLandlordIsCreatedThenReturnLandlord() throws AppExceptions {

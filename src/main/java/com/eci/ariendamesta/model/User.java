@@ -4,6 +4,8 @@ import com.eci.ariendamesta.model.dtos.UserRequestDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Document("Users")
@@ -36,6 +38,16 @@ public class User {
         this.gender = gender;
     }
 
+    public User(String id, String name, String email, String password, String phoneNumber, String birthDate, Gender gender) throws ParseException {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
+        this.gender = gender;
+    }
+
     public User(UserRequestDTO userDTO) {
         this.id = userDTO.getId();
         this.name = userDTO.getName();
@@ -45,7 +57,6 @@ public class User {
         this.birthDate = userDTO.getBirthDate();
         this.gender = userDTO.getGender();
     }
-
     public User() {}
 
     public String getId() {

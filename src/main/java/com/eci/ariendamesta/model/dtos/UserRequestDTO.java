@@ -2,6 +2,8 @@ package com.eci.ariendamesta.model.dtos;
 
 import com.eci.ariendamesta.model.Gender;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UserRequestDTO {
@@ -19,6 +21,16 @@ public class UserRequestDTO {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
+        this.gender = gender;
+    }
+
+    public UserRequestDTO(String id, String name, String email, String password, String phoneNumber, String birthDate, Gender gender) throws ParseException {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
         this.gender = gender;
     }
 
