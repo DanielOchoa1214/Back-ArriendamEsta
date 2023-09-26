@@ -1,6 +1,7 @@
 package com.eci.ariendamesta.repository.impl;
 
 import com.eci.ariendamesta.model.Property;
+import com.eci.ariendamesta.model.State;
 import com.eci.ariendamesta.repository.repointerfaces.PropertyRepositoryInterface;
 import com.eci.ariendamesta.repository.mongorepo.PropertyMongoRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,17 @@ public class PropertyRepository implements PropertyRepositoryInterface {
     }
 
     @Override
-    public List<Property> getEstates() {
-        return null;
+    public List<Property> getProperties() {
+        return mongo.findAll();
+    }
+
+    @Override
+    public List<Property> findHomeOwnerProperties(String homeOwnerId) {
+        return mongo.findHomeOwnerProperties(homeOwnerId);
+    }
+
+    @Override
+    public List<Property> findHomeOwnerProperties(String homeOwnerId, State state) {
+        return mongo.findHomeOwnerProperties(homeOwnerId, state);
     }
 }

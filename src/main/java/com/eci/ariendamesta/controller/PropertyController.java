@@ -2,11 +2,14 @@ package com.eci.ariendamesta.controller;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.model.Property;
+import com.eci.ariendamesta.model.State;
 import com.eci.ariendamesta.model.dtos.PropertyDTO;
 import com.eci.ariendamesta.service.servinterfaces.PropertyServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/property")
@@ -23,6 +26,26 @@ public class PropertyController {
         try {
             Property property = estateService.findProperty(propertyId);
             return ResponseEntity.ok(property);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<?> findProperties() {
+        try {
+            List<Property> properties = estateService.findProperties();
+            return ResponseEntity.ok(properties);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> findHomeOwnerProperties(@RequestParam("homeOwnerId") String homeOwnerId, @RequestParam(value = "state", required = false) State state) {
+        try {
+            List<Property> properties = estateService.findHomeOwnerProperties(homeOwnerId, state);
+            return ResponseEntity.ok(properties);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
