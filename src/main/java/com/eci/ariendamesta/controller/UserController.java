@@ -1,11 +1,36 @@
 package com.eci.ariendamesta.controller;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
+import com.eci.ariendamesta.model.User;
+import com.eci.ariendamesta.model.dtos.UserDTO;
+import com.eci.ariendamesta.service.servinterfaces.UserServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
-/*    private LandlordServiceInterface landlordServices;
+
+    private final UserServiceInterface services;
+
+    public UserController(@Autowired UserServiceInterface services) {
+        this.services = services;
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO){
+        try{
+            User user = services.createUser(userDTO);
+            return ResponseEntity.created(URI.create("")).body(user);
+        } catch (AppExceptions e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /*    private LandlordServiceInterface landlordServices;
 
     public LandlordController(@Autowired LandlordServiceInterface landlordServices){
         this.landlordServices = landlordServices;

@@ -1,11 +1,33 @@
 package com.eci.ariendamesta.service.impl;
 
+import com.eci.ariendamesta.exceptions.AppExceptions;
+import com.eci.ariendamesta.exceptions.UserException;
+import com.eci.ariendamesta.model.User;
+import com.eci.ariendamesta.model.dtos.UserDTO;
+import com.eci.ariendamesta.repository.repointerfaces.UserRepositoryInterface;
 import com.eci.ariendamesta.service.servinterfaces.UserServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class UserService implements UserServiceInterface {
+
+    private UserRepositoryInterface userRepository;
+
+    public UserService(@Autowired UserRepositoryInterface userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public User createUser(UserDTO userDTO) throws AppExceptions {
+        System.out.println(userDTO.getId());
+        if(userRepository.findById(userDTO.getId()).isEmpty()) {
+            User created = new User(userDTO);
+            return userRepository.save(created);
+        }
+        throw new UserException(UserException.NOT_CREATED);
+    }
 /*
 
     LandlordRepositoryInterface landlordRepository;

@@ -1,10 +1,14 @@
 package com.eci.ariendamesta.model;
 
 import com.eci.ariendamesta.model.dtos.UserDTO;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-public abstract class User {
+@Document("Users")
+public class User {
+    @Id
     private String id;
     private String name;
     private String email;
@@ -31,6 +35,17 @@ public abstract class User {
         this.birthDate = birthDate;
         this.gender = gender;
     }
+
+    public User(UserDTO userDTO) {
+        this.id = userDTO.getId();
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.phoneNumber = userDTO.getPhoneNumber();
+        this.birthDate = userDTO.getBirthDate();
+        this.gender = userDTO.getGender();
+    }
+
     public String getId() {
         return id;
     }
@@ -91,7 +106,7 @@ public abstract class User {
         setName(userDTO.getName());
         setEmail(userDTO.getEmail());
         setPassword(userDTO.getPassword());
-        setPhoneNumber(userDTO.getContact());
+        setPhoneNumber(userDTO.getPhoneNumber());
         setBirthDate(userDTO.getBirthDate());
         setGender(userDTO.getGender());
     }
