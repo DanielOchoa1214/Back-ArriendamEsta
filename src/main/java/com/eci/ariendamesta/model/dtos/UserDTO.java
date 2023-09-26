@@ -10,15 +10,15 @@ public class UserDTO{
     private String name;
     private String email;
     private String password;
-    private String contact;
+    private String phoneNumber;
     private Date birthDate;
     private Gender gender;
 
-    public UserDTO(String name, String email, String password, String contact, Date birthDate, Gender gender) {
+    public UserDTO(String name, String email, String password, String phoneNumber, Date birthDate, Gender gender) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.contact = contact;
+        this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.gender = gender;
     }
@@ -39,8 +39,8 @@ public class UserDTO{
         return password;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public Date getBirthDate() {

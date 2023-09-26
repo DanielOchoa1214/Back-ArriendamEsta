@@ -5,11 +5,11 @@ import com.eci.ariendamesta.model.User;
 import java.util.Optional;
 
 public interface UserRepositoryInterface {
-    User save(User tenant);
+    User save(User user);
 
-    Optional<User> findById(String idTenant);
+    Optional<User> findById(String userId);
 
-    void deleteEntity(User tenant);
+    void deleteEntity(User user);
 
-    User update(User tenant);
+    User update(User user);
 }
