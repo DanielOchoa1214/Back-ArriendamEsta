@@ -1,6 +1,6 @@
 package com.eci.ariendamesta.model;
 
-import com.eci.ariendamesta.model.dtos.UserDTO;
+import com.eci.ariendamesta.model.dtos.UserRequestDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -36,7 +36,7 @@ public class User {
         this.gender = gender;
     }
 
-    public User(UserDTO userDTO) {
+    public User(UserRequestDTO userDTO) {
         this.id = userDTO.getId();
         this.name = userDTO.getName();
         this.email = userDTO.getEmail();
@@ -61,7 +61,9 @@ public class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name != null){
+            this.name = name;
+        }
     }
 
     public String getEmail() {
@@ -69,7 +71,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null){
+            this.email = email;
+        }
     }
 
     public String getPassword() {
@@ -77,7 +81,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null){
+            this.password = password;
+        }
     }
 
     public String getPhoneNumber() {
@@ -85,7 +91,9 @@ public class User {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        if(phoneNumber != null){
+            this.phoneNumber = phoneNumber;
+        }
     }
 
     public Gender getGender() {
@@ -93,7 +101,9 @@ public class User {
     }
 
     public void setGender(Gender gender) {
-        this.gender = gender;
+        if(gender != null){
+            this.gender = gender;
+        }
     }
 
     public Date getBirthDate() {
@@ -101,10 +111,12 @@ public class User {
     }
 
     public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+        if(birthDate != null){
+            this.birthDate = birthDate;
+        }
     }
 
-    public void update(UserDTO userDTO) {
+    public void update(UserRequestDTO userDTO) {
         setName(userDTO.getName());
         setEmail(userDTO.getEmail());
         setPassword(userDTO.getPassword());
