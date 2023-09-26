@@ -32,9 +32,4 @@ public class UserRepository implements UserRepositoryInterface {
     public void deleteEntity(User user) {
         mongo.delete(user);
     }
-
-    @Override
-    public User update(User user) {
-        return mongo.save(user);
-    }
 }

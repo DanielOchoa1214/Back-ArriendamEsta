@@ -10,6 +10,4 @@ public interface UserRepositoryInterface {
     Optional<User> findById(String userId);
 
     void deleteEntity(User user);
-
-    User update(User user);
 }

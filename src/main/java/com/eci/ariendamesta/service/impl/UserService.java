@@ -3,7 +3,7 @@ package com.eci.ariendamesta.service.impl;
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.UserException;
 import com.eci.ariendamesta.model.User;
-import com.eci.ariendamesta.model.dtos.UserDTO;
+import com.eci.ariendamesta.model.dtos.UserRequestDTO;
 import com.eci.ariendamesta.repository.repointerfaces.UserRepositoryInterface;
 import com.eci.ariendamesta.service.servinterfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public User createUser(UserDTO userDTO) throws AppExceptions {
+    public User createUser(UserRequestDTO userDTO) throws AppExceptions {
         if(userRepository.findById(userDTO.getId()).isEmpty()) {
             User created = new User(userDTO);
             return userRepository.save(created);
@@ -37,6 +37,14 @@ public class UserService implements UserServiceInterface {
             return user.get();
         }
         throw new UserException(UserException.NOT_FOUND);
+    }
+
+    @Override
+    public User updateUser(String userId, UserRequestDTO userDTO) throws AppExceptions {
+        User user = findById(userId);
+        user.update(userDTO);
+        userRepository.save(user);
+        return user;
     }
 /*
 
