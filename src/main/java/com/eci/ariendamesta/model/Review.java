@@ -1,7 +1,9 @@
 package com.eci.ariendamesta.model;
 
 import com.eci.ariendamesta.model.dtos.ReviewDTO;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document("review")
 public class Review {
     private String id;
     private String content;

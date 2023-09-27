@@ -4,9 +4,11 @@ import com.eci.ariendamesta.model.Review;
 import com.eci.ariendamesta.repository.repointerfaces.ReviewRepositoryInterface;
 import com.eci.ariendamesta.repository.mongorepo.ReviewMongoRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public class ReviewRepository implements ReviewRepositoryInterface {
 
     private final ReviewMongoRepositoryInterface mongo;
