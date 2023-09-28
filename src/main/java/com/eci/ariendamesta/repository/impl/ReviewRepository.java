@@ -35,15 +35,17 @@ public class ReviewRepository implements ReviewRepositoryInterface {
     }
 
     @Override
-    public ArrayList<Review> getReviewsByUser(String userid) {
+    public List<Review> getReviewsByUser(String userid) {
         List<Review> reviewList = mongo.findAll();
-        ArrayList<Review> reviews = new ArrayList<>();
-        for (Review review: reviewList){
-            if (Objects.equals(review.getTargetId(), userid)){
-                reviews.add(review);
-            }
-        }
-        return reviews;
+        reviewList.removeIf(review -> !Objects.equals(review.getTargetId(), userid));
+        return reviewList;
+    }
+
+    @Override
+    public List<Review> getReviewsByProperty(String propertyId) {
+        List<Review> reviewList = mongo.findAll();
+        reviewList.removeIf(review -> !Objects.equals(review.getTargetId(), propertyId));
+        return reviewList;
     }
 
 
