@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/review")
@@ -65,7 +66,17 @@ public class ReviewController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getUserReviews(@PathVariable("userId") String userId){
         try{
-            ArrayList<Review> reviews = reviewServices.getReviewsByUser(userId);
+            List<Review> reviews = reviewServices.getReviewsByUser(userId);
+            return ResponseEntity.ok(reviews);
+        } catch (AppExceptions e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/property/{propertyId}")
+    public ResponseEntity<?> getPropertyReviews(@PathVariable("propertyId") String propertyId){
+        try{
+            List<Review> reviews = reviewServices.getReviewsByProperty(propertyId);
             return ResponseEntity.ok(reviews);
         } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
