@@ -1,10 +1,12 @@
 package com.eci.ariendamesta.model;
 
 import com.eci.ariendamesta.model.dtos.ReviewDTO;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("review")
+@Document("Review")
 public class Review {
+    @Id
     private String id;
     private String content;
     private int stars;
@@ -29,6 +31,8 @@ public class Review {
         this.targetId = reviewDTO.getTargetId();
         this.name = reviewDTO.getName();
     }
+
+    public Review(){}
 
     public String getId() {
         return id;
