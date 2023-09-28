@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/v1/review")
@@ -44,6 +45,7 @@ public class ReviewController {
     public ResponseEntity<?> updateReview(@PathVariable("reviewId") String reviewId, @RequestBody ReviewDTO reviewDTO){
         try{
             Review review = reviewServices.updateReview(reviewId, reviewDTO);
+            System.out.println("Content: "+reviewDTO.getContent());
             return ResponseEntity.ok(review);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -55,6 +57,16 @@ public class ReviewController {
         try{
             reviewServices.deleteReview(reviewId);
             return ResponseEntity.ok().build();
+        } catch (AppExceptions e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getUserReviews(@PathVariable("userId") String userId){
+        try{
+            ArrayList<Review> reviews = reviewServices.getReviewsByUser(userId);
+            return ResponseEntity.ok(reviews);
         } catch (AppExceptions e) {
             return ResponseEntity.notFound().build();
         }
