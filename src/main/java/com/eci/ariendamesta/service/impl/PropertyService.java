@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -74,14 +75,9 @@ public class PropertyService implements PropertyServiceInterface {
     }
 
     @Override
-    public List<Property> findHomeOwnerProperties(String homeOwnerId, State state) throws AppExceptions {
+    public List<Property> findHomeOwnerProperties(Map<String, String> params) throws AppExceptions {
         try {
-            if (state != null) {
-                List<Property> properties = propertyRepository.findHomeOwnerProperties(homeOwnerId, state);
-                return properties;
-            }
-            List<Property> properties = propertyRepository.findHomeOwnerProperties(homeOwnerId);
-            return properties;
+            return propertyRepository.findHomeOwnerProperties(params);
         } catch (Exception e) {
             throw new PropertyException(PropertyException.NOT_FOUND);
         }

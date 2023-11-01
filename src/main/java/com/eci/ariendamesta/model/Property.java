@@ -37,32 +37,6 @@ public class Property {
     }
 
     public Property() {}
-    /*public void addReview(Review review){
-        reviews.add(review);
-    }
-
-    public Optional<Review> getReview(String reviewId){
-        for (Review r : reviews){
-            if (r.getId().equals(reviewId)){
-                return Optional.of(r);
-            }
-        }
-        return Optional.empty();
-    }
-
-    public void addPetition(Petition petition){
-        petitions.add(petition);
-    }
-
-    public Optional<Petition> getPetitions(String petitionId){
-        for (Petition p : petitions){
-            if (p.getId().equals(petitionId)){
-                return Optional.of(p);
-            }
-        }
-        return Optional.empty();
-    }*/
-
 
     public String getId() {
         return id;

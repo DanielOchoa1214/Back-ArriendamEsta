@@ -2,6 +2,7 @@ package com.eci.ariendamesta.repository.mongorepo;
 
 import com.eci.ariendamesta.model.Property;
 import com.eci.ariendamesta.model.State;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -13,4 +14,7 @@ public interface PropertyMongoRepositoryInterface extends MongoRepository<Proper
 
     @Query("{homeOwnerId:'?0', stateEstate:'?1'}")
     List<Property> findHomeOwnerProperties(String homeOwnerId, State state);
+
+    @Query("{$and: [?0]}")
+    List<Property> findHomeOwnerProperties(Criteria criteria);
 }

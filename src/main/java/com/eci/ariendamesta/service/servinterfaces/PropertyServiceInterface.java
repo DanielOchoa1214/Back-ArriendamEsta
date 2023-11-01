@@ -6,6 +6,7 @@ import com.eci.ariendamesta.model.State;
 import com.eci.ariendamesta.model.dtos.PropertyDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PropertyServiceInterface {
     Property findProperty(String propertyId) throws AppExceptions;
@@ -18,7 +19,7 @@ public interface PropertyServiceInterface {
 
     List<Property> findProperties() throws AppExceptions;
 
-    List<Property> findHomeOwnerProperties(String homeOwnerId, State state) throws AppExceptions;
+    List<Property> findHomeOwnerProperties(Map<String, String> params) throws AppExceptions;
 
 
 }

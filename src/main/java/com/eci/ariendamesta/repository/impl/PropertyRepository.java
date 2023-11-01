@@ -1,21 +1,26 @@
 package com.eci.ariendamesta.repository.impl;
 
 import com.eci.ariendamesta.model.Property;
-import com.eci.ariendamesta.model.State;
 import com.eci.ariendamesta.repository.repointerfaces.PropertyRepositoryInterface;
 import com.eci.ariendamesta.repository.mongorepo.PropertyMongoRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
 public class PropertyRepository implements PropertyRepositoryInterface {
     private PropertyMongoRepositoryInterface mongo;
+    private final MongoTemplate mongoTemplate;
 
-    public PropertyRepository(@Autowired PropertyMongoRepositoryInterface mongo) {
+    public PropertyRepository(@Autowired PropertyMongoRepositoryInterface mongo, @Autowired MongoTemplate mongoTemplate) {
         this.mongo = mongo;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -39,12 +44,13 @@ public class PropertyRepository implements PropertyRepositoryInterface {
     }
 
     @Override
-    public List<Property> findHomeOwnerProperties(String homeOwnerId) {
-        return mongo.findHomeOwnerProperties(homeOwnerId);
+    public List<Property> findHomeOwnerProperties(Map<String, String> params) {
+        Criteria criteria = new Criteria();
+        for (String paramKey : params.keySet()) {
+            criteria.and(paramKey).is(params.get(paramKey));
+        }
+        return mongoTemplate.find(Query.query(criteria), Property.class);
     }
 
-    @Override
-    public List<Property> findHomeOwnerProperties(String homeOwnerId, State state) {
-        return mongo.findHomeOwnerProperties(homeOwnerId, state);
-    }
+    //private void buildQuery(Query query, )
 }

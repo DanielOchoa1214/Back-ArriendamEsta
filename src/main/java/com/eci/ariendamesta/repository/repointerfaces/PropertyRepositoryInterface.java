@@ -4,6 +4,7 @@ import com.eci.ariendamesta.model.Property;
 import com.eci.ariendamesta.model.State;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PropertyRepositoryInterface {
@@ -12,6 +13,6 @@ public interface PropertyRepositoryInterface {
     Property save(Property property);
     void deleteEntity(Property property);
     List<Property> getProperties();
-    List<Property> findHomeOwnerProperties(String homeOwnerId);
-    List<Property> findHomeOwnerProperties(String homeOwnerId, State state);
+    //List<Property> findHomeOwnerProperties(String homeOwnerId);
+    List<Property> findHomeOwnerProperties(Map<String, String> params);
 }

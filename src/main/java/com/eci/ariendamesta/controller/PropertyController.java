@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/property")
@@ -42,9 +43,9 @@ public class PropertyController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> findHomeOwnerProperties(@RequestParam("homeOwnerId") String homeOwnerId, @RequestParam(value = "state", required = false) State state) {
+    public ResponseEntity<?> findHomeOwnerProperties(@RequestParam Map<String,String> allRequestParams) {
         try {
-            List<Property> properties = estateService.findHomeOwnerProperties(homeOwnerId, state);
+            List<Property> properties = estateService.findHomeOwnerProperties(allRequestParams);
             return ResponseEntity.ok(properties);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());
