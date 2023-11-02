@@ -23,7 +23,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User createUser(UserRequestDTO userDTO) throws AppExceptions {
-        if(userRepository.findById(userDTO.getId()).isEmpty()) {
+        if(userRepository.findByEmail(userDTO.getEmail()).isEmpty()) {
             User created = new User(userDTO);
             return userRepository.save(created);
         }
