@@ -2,6 +2,7 @@ package com.eci.ariendamesta.service.impl;
 
 import com.eci.ariendamesta.exceptions.AppExceptions;
 import com.eci.ariendamesta.exceptions.PetitionException;
+import com.eci.ariendamesta.exceptions.PropertyException;
 import com.eci.ariendamesta.model.Petition;
 import com.eci.ariendamesta.model.dtos.PetitionDTO;
 import com.eci.ariendamesta.repository.repointerfaces.PetitionRepositoryInterface;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 @Service
 public class PetitionService implements PetitionServiceInterface {
@@ -65,6 +67,15 @@ public class PetitionService implements PetitionServiceInterface {
             List<Petition> petition = petitionRepository.getPetitions();
             return petition;
         }catch (Exception e){
+            throw new PetitionException(PetitionException.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public List<Petition> findEstatePetitions(Map<String, String> params) throws AppExceptions {
+        try {
+            return petitionRepository.findEstatePetitions(params);
+        } catch (Exception e) {
             throw new PetitionException(PetitionException.NOT_FOUND);
         }
     }

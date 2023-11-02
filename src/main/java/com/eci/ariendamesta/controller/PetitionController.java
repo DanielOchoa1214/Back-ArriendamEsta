@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -18,12 +19,12 @@ public class PetitionController {
     public PetitionController(@Autowired PetitionServiceInterface petitionService){this.petitionService=petitionService;}
 
     @GetMapping()
-    public ResponseEntity<?> getPetitions(){
+    public ResponseEntity<?> findHomeOwnerProperties(@RequestParam Map<String,String> allRequestParams) {
         try {
-            List<Petition> petition = petitionService.findPetitions();
+            List<Petition> petition = petitionService.findEstatePetitions(allRequestParams);
             return ResponseEntity.ok(petition);
-        } catch (AppExceptions e){
-            return ResponseEntity.notFound().build();
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @GetMapping("/{petitionId}")
