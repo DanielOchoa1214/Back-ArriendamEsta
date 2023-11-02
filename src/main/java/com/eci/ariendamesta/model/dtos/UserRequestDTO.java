@@ -1,9 +1,12 @@
 package com.eci.ariendamesta.model.dtos;
 
 import com.eci.ariendamesta.model.Gender;
+import org.springframework.data.annotation.Id;
 
+import javax.annotation.processing.Generated;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class UserRequestDTO {
@@ -33,6 +36,8 @@ public class UserRequestDTO {
         this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
         this.gender = gender;
     }
+
+    public UserRequestDTO(){}
 
     public String getId() {
         return id;
