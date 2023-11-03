@@ -8,6 +8,7 @@ import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 @Document("Users")
 public class User {
@@ -60,6 +61,9 @@ public class User {
     }
     public User() {}
 
+    public boolean comparePassword(String password){
+        return Objects.equals(password, this.password);
+    }
     public String getId() {
         return id;
     }
