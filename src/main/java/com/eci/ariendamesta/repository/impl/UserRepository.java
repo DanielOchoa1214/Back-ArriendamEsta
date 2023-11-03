@@ -30,12 +30,7 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        List<User> users = mongo.findAll();
-        users.removeIf(user -> !user.getEmail().equals(email));
-        if (!users.isEmpty()){
-            return Optional.of(users.get(0));
-        }
-        return Optional.empty();
+        return mongo.findUserByEmail(email);
     }
 
     @Override
