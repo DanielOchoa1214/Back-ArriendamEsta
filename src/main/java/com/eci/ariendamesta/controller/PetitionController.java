@@ -54,6 +54,15 @@ public class PetitionController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("/updateStatus/{petitionId}/{status}")
+    public ResponseEntity<?> updatePetitionStatus(@PathVariable("petitionId") String petitionId, @PathVariable("status") String status){
+        try{
+            Petition petition = petitionService.updatePetitionStatus(petitionId,status);
+            return ResponseEntity.ok(petition);
+        } catch (AppExceptions e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @DeleteMapping("/{petitionId}")
     public ResponseEntity<?> deletePetition(@PathVariable("petitionId") String petitionId){
         try{

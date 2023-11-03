@@ -79,4 +79,15 @@ public class PetitionService implements PetitionServiceInterface {
             throw new PetitionException(PetitionException.NOT_FOUND);
         }
     }
+
+    @Override
+    public Petition updatePetitionStatus(String petitionId, String status) throws AppExceptions {
+        Petition petition = findPetition(petitionId);
+        petition.updateStatus(status);
+        try {
+            return petitionRepository.save(petition);
+        } catch (Exception e) {
+            throw new PetitionException(PetitionException.NOT_UPDATED);
+        }
+    }
 }

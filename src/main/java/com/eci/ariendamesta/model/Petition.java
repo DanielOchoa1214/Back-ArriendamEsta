@@ -59,4 +59,12 @@ public class Petition {
         this.authorId = petitionDTO.getAuthorId();
         this.propertyId = petitionDTO.getPropertyId();
     }
+
+    public void updateStatus(String acepted){
+        if (acepted.equals("true")){
+            this.acepted = true;
+        }else {
+            this.acepted = false;
+        }
+    }
 }

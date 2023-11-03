@@ -15,4 +15,6 @@ public interface PetitionServiceInterface {
     void deletePetition(String petitionId) throws AppExceptions;
     List<Petition> findPetitions() throws AppExceptions;
     List<Petition> findEstatePetitions(Map<String, String> params) throws AppExceptions;
+
+    Petition updatePetitionStatus(String petitionId, String status) throws AppExceptions;
 }
