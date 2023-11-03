@@ -33,20 +33,10 @@ public class PropertyController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<?> findProperties() {
-        try {
-            List<Property> properties = estateService.findProperties();
-            return ResponseEntity.ok(properties);
-        } catch (AppExceptions e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
     @GetMapping()
-    public ResponseEntity<?> findHomeOwnerProperties(@RequestParam Map<String,String> allRequestParams) {
+    public ResponseEntity<?> getPropertiesFilters(@RequestParam(required = false) Map<String,String> allRequestParams) {
         try {
-            List<Property> properties = estateService.findHomeOwnerProperties(allRequestParams);
+            List<Property> properties = estateService.getProperties(allRequestParams);
             return ResponseEntity.ok(properties);
         } catch (AppExceptions e) {
             return ResponseEntity.badRequest().body(e.getMessage());

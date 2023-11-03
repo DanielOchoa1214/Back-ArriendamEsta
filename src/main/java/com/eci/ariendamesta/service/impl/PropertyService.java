@@ -35,15 +35,6 @@ public class PropertyService implements PropertyServiceInterface {
     }
 
     @Override
-    public List<Property> findProperties() throws AppExceptions {
-        try {
-            return propertyRepository.getProperties();
-        } catch (Exception e) {
-            throw new PropertyException(PropertyException.NOT_FOUND);
-        }
-    }
-
-    @Override
     public Property createProperty(PropertyDTO propertyDTO) throws AppExceptions {
         Optional<Property> propertyOptional = propertyRepository.findById(propertyDTO.getId());
         if (propertyOptional.isEmpty()) {
@@ -75,9 +66,9 @@ public class PropertyService implements PropertyServiceInterface {
     }
 
     @Override
-    public List<Property> findHomeOwnerProperties(Map<String, String> params) throws AppExceptions {
+    public List<Property> getProperties(Map<String, String> params) throws AppExceptions {
         try {
-            return propertyRepository.findHomeOwnerProperties(params);
+            return propertyRepository.getProperties(params);
         } catch (Exception e) {
             throw new PropertyException(PropertyException.NOT_FOUND);
         }

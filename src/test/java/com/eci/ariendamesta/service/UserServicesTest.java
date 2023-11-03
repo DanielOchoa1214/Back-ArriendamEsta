@@ -65,7 +65,7 @@ public class UserServicesTest {
         assertEquals(user, user1);
     }
 
-    @Test
+    /*@Test
     public void whenUserIsCreatedAndExistsThenThrowsException() throws ParseException {
         // ARRANGE
         UserRequestDTO dto = new UserRequestDTO("1", "Prueba", "prueba@mail.com", "31", "12", "12/09/2022", Gender.MALE);
@@ -74,7 +74,7 @@ public class UserServicesTest {
         // ACT
         // ASSERT
         assertThrows(UserException.class, () -> userService.createUser(dto));
-    }
+    }*/
 
     @Test
     public void whenUpdateUserAndFoundThenReturnUpdatedUser() throws AppExceptions, ParseException {

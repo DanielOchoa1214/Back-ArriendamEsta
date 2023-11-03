@@ -17,9 +17,7 @@ public interface PropertyServiceInterface {
 
     void deleteProperty(String propertyId) throws AppExceptions;
 
-    List<Property> findProperties() throws AppExceptions;
-
-    List<Property> findHomeOwnerProperties(Map<String, String> params) throws AppExceptions;
+    List<Property> getProperties(Map<String, String> params) throws AppExceptions;
 
 
 }

@@ -14,5 +14,5 @@ public interface PropertyRepositoryInterface {
     void deleteEntity(Property property);
     List<Property> getProperties();
     //List<Property> findHomeOwnerProperties(String homeOwnerId);
-    List<Property> findHomeOwnerProperties(Map<String, String> params);
+    List<Property> getProperties(Map<String, String> params);
 }

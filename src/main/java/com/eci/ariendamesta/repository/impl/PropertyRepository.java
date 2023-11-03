@@ -44,10 +44,15 @@ public class PropertyRepository implements PropertyRepositoryInterface {
     }
 
     @Override
-    public List<Property> findHomeOwnerProperties(Map<String, String> params) {
+    public List<Property> getProperties(Map<String, String> params) {
         Criteria criteria = new Criteria();
         for (String paramKey : params.keySet()) {
-            criteria.and(paramKey).is(params.get(paramKey));
+            try {
+                Integer integer = Integer.parseInt(params.get(paramKey));
+                criteria.and(paramKey).gte(integer);
+            } catch (Exception e) {
+                criteria.and(paramKey).is(params.get(paramKey));
+            }
         }
         return mongoTemplate.find(Query.query(criteria), Property.class);
     }
