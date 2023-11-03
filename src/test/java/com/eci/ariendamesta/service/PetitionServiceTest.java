@@ -33,7 +33,7 @@ public class PetitionServiceTest {
     @Test
     public void whenPetitionIsFindByIdAndExistThenReturnPetition() throws AppExceptions {
         //Arrange
-        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1");
+        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1","1");
         when(petitionRepository.findById("1")).thenReturn(Optional.of(petition));
         //Act
         Petition petitionTest = petitionService.findPetition(petition.getId());
@@ -53,7 +53,7 @@ public class PetitionServiceTest {
     @Test
     public void whenPetitionIsCreatedAndNotExistThenReturnPetition() throws AppExceptions {
         //Arrange
-        PetitionDTO petitiondto = new PetitionDTO("1",true,"quiero arrendar esta casa","1","1");
+        PetitionDTO petitiondto = new PetitionDTO("1",true,"quiero arrendar esta casa","1","1","1");
         Petition petition = new Petition(petitiondto);
         when(petitionRepository.findById("1")).thenReturn(Optional.empty());
         when(petitionRepository.save(any())).thenReturn(petition);
@@ -66,7 +66,7 @@ public class PetitionServiceTest {
     public void whenPetitionIsCreatedAndExistThenThrowException() {
         Assertions.assertThrowsExactly(PetitionException.class,() -> {
             //Arrange
-            PetitionDTO petitiondto = new PetitionDTO("1",true,"quiero arrendar esta casa","1","1");
+            PetitionDTO petitiondto = new PetitionDTO("1",true,"quiero arrendar esta casa","1","1","1");
             Petition petition = new Petition(petitiondto);
             when(petitionRepository.findById("1")).thenReturn(Optional.of(petition));
             //Act
@@ -77,9 +77,9 @@ public class PetitionServiceTest {
     @Test
     public void whenUpdatePetitionAndExistThenReturnPetition() throws AppExceptions {
         //Arrange
-        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1");
-        Petition petitionupdate = new Petition("1",false,"quiero arrendar esta casa","1","1");
-        PetitionDTO petitiondto = new PetitionDTO("1",false,"quiero arrendar esta casa","1","1");
+        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1","1");
+        Petition petitionupdate = new Petition("1",false,"quiero arrendar esta casa","1","1","1");
+        PetitionDTO petitiondto = new PetitionDTO("1",false,"quiero arrendar esta casa","1","1","1");
         when(petitionRepository.findById("1")).thenReturn(Optional.of(petition));
         when(petitionRepository.save(any())).thenReturn(petitionupdate);
         //Act
@@ -91,7 +91,7 @@ public class PetitionServiceTest {
     public void whenUpdatePetitionAndNotExistThenThrowException() throws AppExceptions {
         Assertions.assertThrowsExactly(PetitionException.class,() -> {
             //Arrange
-            PetitionDTO petitiondto = new PetitionDTO("1",false,"quiero arrendar esta casa","1","1");
+            PetitionDTO petitiondto = new PetitionDTO("1",false,"quiero arrendar esta casa","1","1","1");
             when(petitionRepository.findById("1")).thenReturn(Optional.empty());
             //Act
             Petition petitionTest = petitionService.updatePetition("1", petitiondto);
@@ -101,7 +101,7 @@ public class PetitionServiceTest {
     @Test
     public void whenDeletedPetitionAndExistThenReturnNothing() throws AppExceptions {
         //Arrange
-        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1");
+        Petition petition = new Petition("1",true,"quiero arrendar esta casa","1","1","1");
         when(petitionRepository.findById("1")).thenReturn(Optional.of(petition));
         //Act
         petitionService.deletePetition("1");
@@ -120,8 +120,8 @@ public class PetitionServiceTest {
     @Test
     public void whenExistPetitionsThenReturnPetition() throws AppExceptions {
         //Arrange
-        Petition petition1 = new Petition("1",true,"quiero arrendar esta casa","1","1");
-        Petition petition2 = new Petition("2",true,"quiero arrendar esta casa","3","5");
+        Petition petition1 = new Petition("1",true,"quiero arrendar esta casa","1","1","1");
+        Petition petition2 = new Petition("2",true,"quiero arrendar esta casa","3","5","7");
         List<Petition> petitions = new ArrayList<>();
         petitions.add(petition1);
         petitions.add(petition2);

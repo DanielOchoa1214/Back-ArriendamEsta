@@ -9,13 +9,15 @@ public class Petition {
     private boolean acepted ;
     private String content;
     private String authorId;
+    private String ownerId;
     private String propertyId;
 
-    public Petition(String id,Boolean acepted, String content, String authorId,String propertyId){
+    public Petition(String id,Boolean acepted, String content, String authorId,String ownerId,String propertyId){
         this.id = id;
         this.content = content;
         this.acepted = acepted;
         this.authorId = authorId;
+        this.ownerId = ownerId;
         this.propertyId = propertyId;
     }
     public Petition(PetitionDTO petitionDTO){
@@ -23,6 +25,7 @@ public class Petition {
         this.content = petitionDTO.getContent();
         this.acepted = petitionDTO.isAcepted();
         this.authorId = petitionDTO.getAuthorId();
+        this.ownerId = petitionDTO.getOwnerId();
         this.propertyId = petitionDTO.getPropertyId();
     }
     public Petition(){}
@@ -52,11 +55,14 @@ public class Petition {
     }
     public String getPropertyId() {return propertyId;}
     public void setPropertyId(String propertyId) {this.propertyId = propertyId;}
+    public String getOwnerId() {return ownerId;}
+    public void setOwnerId(String ownerId) {this.ownerId = ownerId;}
     public void update(PetitionDTO petitionDTO) {
         this.id = petitionDTO.getId();
         this.content = petitionDTO.getContent();
         this.acepted = petitionDTO.isAcepted();
         this.authorId = petitionDTO.getAuthorId();
+        this.ownerId = petitionDTO.getOwnerId();
         this.propertyId = petitionDTO.getPropertyId();
     }
 
