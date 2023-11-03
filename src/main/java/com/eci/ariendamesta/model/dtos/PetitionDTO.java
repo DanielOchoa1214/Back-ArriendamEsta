@@ -5,13 +5,15 @@ public class PetitionDTO {
     private boolean acepted;
     private String content;
     private String authorId;
+    private String ownerId;
     private String propertyId;
 
-    public PetitionDTO(String id,Boolean acepted, String content, String authorId, String propertyId){
+    public PetitionDTO(String id, Boolean acepted, String content, String authorId, String ownerId, String propertyId){
         this.id = id;
         this.content = content;
         this.acepted = acepted;
         this.authorId = authorId;
+        this.ownerId = ownerId;
         this.propertyId = propertyId;
     }
 
@@ -39,7 +41,6 @@ public class PetitionDTO {
         this.authorId = authorId;
     }
 
-
     public String getId() {
         return id;
     }
@@ -55,4 +56,8 @@ public class PetitionDTO {
     public void setPropertyId(String propertyId) {
         this.propertyId = propertyId;
     }
+
+    public String getOwnerId() {return ownerId;}
+
+    public void setOwnerId(String ownerId) {this.ownerId = ownerId;}
 }
