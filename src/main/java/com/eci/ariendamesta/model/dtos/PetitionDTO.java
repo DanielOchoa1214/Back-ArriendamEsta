@@ -1,19 +1,20 @@
 package com.eci.ariendamesta.model.dtos;
 
-import com.eci.ariendamesta.model.tenant.Tenant;
-
 public class PetitionDTO {
-
     private String id;
     private boolean acepted;
     private String content;
     private String authorId;
+    private String ownerId;
+    private String propertyId;
 
-    public PetitionDTO(String id,Boolean acepted, String content, String authorId){
+    public PetitionDTO(String id, Boolean acepted, String content, String authorId, String ownerId, String propertyId){
         this.id = id;
         this.content = content;
         this.acepted = acepted;
         this.authorId = authorId;
+        this.ownerId = ownerId;
+        this.propertyId = propertyId;
     }
 
     public boolean isAcepted() {
@@ -40,7 +41,6 @@ public class PetitionDTO {
         this.authorId = authorId;
     }
 
-
     public String getId() {
         return id;
     }
@@ -48,4 +48,16 @@ public class PetitionDTO {
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(String propertyId) {
+        this.propertyId = propertyId;
+    }
+
+    public String getOwnerId() {return ownerId;}
+
+    public void setOwnerId(String ownerId) {this.ownerId = ownerId;}
 }

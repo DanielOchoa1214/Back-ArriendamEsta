@@ -1,37 +1,68 @@
 package com.eci.ariendamesta.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import com.eci.ariendamesta.model.dtos.UserRequestDTO;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-public abstract class User {
+import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+
+@Document("Users")
+public class User {
+    @Id
     private String id;
     private String name;
     private String email;
     private String password;
-    private String contact;
-    private String age;
+    private String phoneNumber;
+    private Date birthDate;
     private Gender gender;
 
-    protected List<Review> reviews = new ArrayList<>();
-
-    public User(String id, String name, String email, String password, String contact, String age, Gender gender) {
+    public User(String id, String name, String email, String password, String phoneNumber, Date birthDate, Gender gender) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.contact = contact;
-        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
         this.gender = gender;
     }
 
-    public User(String name, String email, String password, String contact, String age, Gender gender) {
+    public User(String name, String email, String password, String phoneNumber, Date birthDate, Gender gender) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.contact = contact;
-        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
         this.gender = gender;
+    }
+
+    public User(String id, String name, String email, String password, String phoneNumber, String birthDate, Gender gender) throws ParseException {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = new SimpleDateFormat("dd/MM/yyyy").parse(birthDate);
+        this.gender = gender;
+    }
+
+    public User(UserRequestDTO userDTO) {
+        this.id = userDTO.getId();
+        this.name = userDTO.getName();
+        this.email = userDTO.getEmail();
+        this.password = userDTO.getPassword();
+        this.phoneNumber = userDTO.getPhoneNumber();
+        this.birthDate = userDTO.getBirthDate();
+        this.gender = userDTO.getGender();
+    }
+    public User() {}
+
+    public boolean comparePassword(String password){
+        return Objects.equals(password, this.password);
     }
     public String getId() {
         return id;
@@ -46,7 +77,9 @@ public abstract class User {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if(name != null){
+            this.name = name;
+        }
     }
 
     public String getEmail() {
@@ -54,7 +87,9 @@ public abstract class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (email != null){
+            this.email = email;
+        }
     }
 
     public String getPassword() {
@@ -62,23 +97,19 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if(password != null){
+            this.password = password;
+        }
     }
 
-    public String getContact() {
-        return contact;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
+    public void setPhoneNumber(String phoneNumber) {
+        if(phoneNumber != null){
+            this.phoneNumber = phoneNumber;
+        }
     }
 
     public Gender getGender() {
@@ -86,19 +117,27 @@ public abstract class User {
     }
 
     public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public void addReview(Review review) {
-        reviews.add(review);
-    }
-
-    public Optional<Review> getReview(String reviewId) {
-        for (Review r: reviews){
-            if (r.getId().equals(reviewId)){
-                return Optional.of(r);
-            }
+        if(gender != null){
+            this.gender = gender;
         }
-        return Optional.empty();
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        if(birthDate != null){
+            this.birthDate = birthDate;
+        }
+    }
+
+    public void update(UserRequestDTO userDTO) {
+        setName(userDTO.getName());
+        setEmail(userDTO.getEmail());
+        setPassword(userDTO.getPassword());
+        setPhoneNumber(userDTO.getPhoneNumber());
+        setBirthDate(userDTO.getBirthDate());
+        setGender(userDTO.getGender());
     }
 }
